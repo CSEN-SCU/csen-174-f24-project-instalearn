@@ -3,7 +3,6 @@
 // YOUR API KEY DOES NOT GO IN THIS CODE; don't paste it in.
 API_KEY_COOKIE   = "bing-search-api-key";
 CLIENT_ID_COOKIE = "bing-search-client-id";
-
 // Bing Search API endpoint
 BING_ENDPOINT = "https://api.bing.microsoft.com/v7.0/images/search";
 //https://api.bing.microsoft.com/bing/v7.0/images/search
@@ -37,7 +36,6 @@ try {
         document.cookie = name + "=" + value.trim() + "; expires=" + expiry.toUTCString();
     }
 }
-
 // get stored API subscription key, or prompt if it's not found
 function getSubscriptionKey() {
     var key = retrieveValue(API_KEY_COOKIE);
@@ -48,29 +46,24 @@ function getSubscriptionKey() {
     storeValue(API_KEY_COOKIE, key);
     return key;
 }
-
 // invalidate stored API subscription key so user will be prompted again
 function invalidateSubscriptionKey() {
     storeValue(API_KEY_COOKIE, "");
 }
-
 // escape text for use in HTML
 function escape(text) {
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").
         replace(/'/g, "&apos;").replace(/"/g, "&quot;");
 }
-
 // get the host portion of a URL, strpping out search result formatting and www too
 function getHost(url) {
     return url.replace(/<\/?b>/g, "").replace(/^https?:\/\//, "").split("/")[0].replace(/^www\./, "");
 }
-
 // format plain text for display as an HTML <pre> element
 function preFormat(text) {
     text = "" + text;
     return "<pre>" + text.replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</pre>"
 }
-
 // put HTML markup into a <div> and reveal it
 function showDiv(id, html) {
     var content = document.getElementById("_" + id)
@@ -78,7 +71,6 @@ function showDiv(id, html) {
     var wrapper = document.getElementById(id);
     if (wrapper) wrapper.style.display = html.trim() ? "block" : "none";
 }
-
 // hides the specified <div>s
 function hideDivs() {
     for (var i = 0; i < arguments.length; i++) {
@@ -99,9 +91,9 @@ searchItemRenderers = {
         html.push("<img src='"+ item.thumbnailUrl + "&h=" + height + "&w=" + width + 
             "' height=" + height + " width=" + width + "'>");
         html.push("<br>");
-        html.push("<nobr><a href='" + item.contentUrl + "'>Image</a> - ");
-        html.push("<a href='" + item.hostPageUrl + "'>Page</a></nobr><br>");
-        html.push(title.replace("\n", " (").replace(/([a-z0-9])\.([a-z0-9])/g, "$1.<wbr>$2") + ")</p>");
+        //html.push("<nobr><a href='" + item.contentUrl + "'>Image</a> - ");
+        //html.push("<a href='" + item.hostPageUrl + "'>Page</a></nobr><br>");
+        //html.push(title.replace("\n", " (").replace(/([a-z0-9])\.([a-z0-9])/g, "$1.<wbr>$2") + ")</p>");
         return html.join("");
     },
     relatedSearches: function(item) {
@@ -124,20 +116,22 @@ function renderImageResults(items) {
         hideDivs("paging1", "paging2");
         return "";
     }
-    for (var i = 0; i < len; i++) {
+    //CHANGE HERE FOR AMOUNT OF PICTURES TO SHOW
+    for (var i = 0; i < 1; i++) {
         html.push(searchItemRenderers.images(items[i], i, len));
     }
     return html.join("\n\n");
 }
 
+//TAKE OUT SINCE LISTS RELATED SEARCH TERMS
 // render related items
 function renderRelatedItems(items) {
     var len = items.length;
     var html = [];
-    for (var i = 0; i < len; i++) {
-        html.push(searchItemRenderers.relatedSearches(items[i], i, len));
-    }
-    return html.join("\n\n");
+    //for (var i = 0; i < len; i++) {
+        //html.push(searchItemRenderers.relatedSearches(items[i], i, len));
+    //}
+    //return html.join("\n\n");
 }
 
 // render the search results given the parsed JSON response
