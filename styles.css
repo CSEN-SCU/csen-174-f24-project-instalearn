@@ -1,0 +1,131 @@
+body {
+    font-family: 'Avenir', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+.header .logo {
+    font-size: 25pt;
+    font-weight: bold; 
+    color: #BC4749; 
+}
+
+.header .search-bar {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #386641; 
+    border-radius: 4px;
+    background-color: #F0F5ED; 
+    font-size: 12pt; 
+    color: #386641; 
+    margin: 0 25px; 
+    font-family: 'Avenir', sans-serif;
+}
+
+.header .btn {
+    padding: 10px 15px; 
+    background-color: white; 
+    color: #386641; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size:15pt; 
+    line-height: 1; 
+    transition: background-color 0.3s; 
+}
+
+.header .logout {
+    padding: 10px 15px; 
+    background-color: #6A994E; 
+    color: #F2E8CF; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15pt; 
+    line-height: 1; 
+    transition: background-color 0.3s; 
+}
+
+.header .btn:hover {
+    background-color: #F0F5ED; 
+}
+
+.header .logout:hover {
+    background-color: #5A7A3E; 
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 25px; 
+    white-space: nowrap;
+}
+
+.main-content {
+    padding: 0 20px; 
+}
+
+.main-content h1 {
+    font-size: 35pt; 
+    color: #386641; 
+    margin-bottom: 20px; 
+}
+
+.sets-container {
+    display: flex; 
+    justify-content: space-between; 
+    flex-wrap: wrap; 
+}
+
+.set-card {
+    background-color: #F9F4E7; 
+    border: 1px solid #386641; 
+    border-radius: 4px; 
+    padding: 15px; 
+    font-size: 15pt;
+    color: #386641; 
+    flex: 1 1 300px; 
+    height: 215px; 
+    margin: 10px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    box-sizing: border-box; 
+}
+
+.create-set-card {
+    background-color: #F9F4E7; 
+    border: 1px solid #386641; 
+    border-radius: 4px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 215px; 
+    margin: 10px;
+    box-sizing: border-box; 
+    cursor: pointer;
+}
+
+.plus-icon {
+    font-size: 50pt;
+    color: #386641;
+}
+
+.set-card:hover {
+    background-color: #F2E8CF; 
+}
+
+.create-set-card:hover {
+    background-color: #F2E8CF; 
+}
