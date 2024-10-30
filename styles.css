@@ -129,3 +129,43 @@ body {
 .create-set-card:hover {
     background-color: #F2E8CF; 
 }
+
+.result-box {
+    background-color: #F9F4E7;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    color: #386641;
+    text-align: left;
+}
+
+.word-title {
+    font-size: 24px;
+    color: #386641;
+    text-align: left;
+    padding-left: 10px;
+    margin-top: 0; 
+}
+
+.result-details {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.detail-box {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 15px;
+    width: 30%;
+    text-align: center;
+    font-size: 16px;
+    color: #386641;
+    height: 215px; /* Set height to match the set cards */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
