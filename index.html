@@ -9,12 +9,14 @@
 <body>
 
 <header class="header">
-    <div class="logo">InstaLearn</div>
+    <a href="index.html" class="logo">InstaLearn</a>
 
-    <input type="text" placeholder="Search in English" class="search-bar">
+    <form action="search-results.html" method="get">
+        <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
+    </form>
 
     <div class="header-buttons">
-        <a href="#" class="btn">+ Create Set</a>
+        <a href="create-new-set.html" class="btn">+ Create Set</a>
         <button class="logout">Log Out</button>
     </div>
 </header>
@@ -22,13 +24,9 @@
 <main class="main-content">
     <h1>Your Sets</h1>
     <div class="sets-container">
-        <div class="set-card create-set-card">
-            <div class="plus-icon">+</div>
-        </div>
-
-        <div class="set-card">Set Name</div>
-        <div class="set-card">Set Name</div>
-        <div class="set-card">Set Name</div>
+        <a href="set.html" class="set-card">Set Name</a>
+        <a href="set.html" class="set-card">Set Name</a>
+        <a href="set.html" class="set-card">Set Name</a>
     </div>
 </main>
 

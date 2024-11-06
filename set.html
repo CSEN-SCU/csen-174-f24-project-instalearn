@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Title - InstaLearn</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="index.html" class="logo">InstaLearn</a>
+
+    <form action="search-results.html" method="get">
+        <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
+    </form>
+
+    <div class="header-buttons">
+        <a href="create-new-set.html" class="btn">+ Create Set</a>
+        <button class="logout">Log Out</button>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="create-set-header">
+        <h1>Set Title</h1>
+        <button type="button" class="btn edit-btn">Edit</button>
+    </div>
+    
+    <form action="#" method="POST" class="create-set-form">
+        <div class="result-box">
+            <h2 class="word-title">
+                <label for="word">Word</label>
+            </h2>    
+
+            <div class="result-details">
+                <div class="detail-box">
+                    <label for="translation">Portuguese Translation</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="image">Image</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="audio">Audio</label>
+                </div>
+            </div>
+        </div>
+    </form>    
+</main>
+
+</body>
+</html>

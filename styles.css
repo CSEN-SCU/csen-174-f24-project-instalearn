@@ -16,6 +16,13 @@ body {
     font-size: 25pt;
     font-weight: bold; 
     color: #BC4749; 
+    text-decoration: none;
+}
+
+.header form {
+    display: flex; 
+    flex-grow: 1;
+    margin: 0; 
 }
 
 .header .search-bar {
@@ -100,6 +107,7 @@ body {
     justify-content: center; 
     align-items: center; 
     box-sizing: border-box; 
+    text-decoration: none;
 }
 
 .create-set-card {
@@ -150,6 +158,21 @@ body {
     margin-top: 0; 
 }
 
+.word-title input {
+    width: calc(100% - 25px); 
+    border: none; 
+    border-bottom: 2px solid #386641; 
+    background-color: transparent; 
+    color: #386641; 
+    font-size: 18px; 
+    font-family: 'Avenir', sans-serif; 
+}
+
+.word-title input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .result-details {
     display: flex;
     justify-content: space-around;
@@ -164,8 +187,107 @@ body {
     text-align: center;
     font-size: 16px;
     color: #386641;
-    height: 215px; /* Set height to match the set cards */
+    height: 215px; 
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.set-name {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box; 
+}
+
+.set-name input {
+    padding: 18px;
+    border: 0px;
+    border-radius: 4px;
+    background-color: #F0F5ED;
+    font-size: 14pt;
+    color: #386641;
+    margin-top: 5px;
+    width: 100%;
+    font-family: 'Avenir', sans-serif; 
+    box-sizing: border-box; 
+}
+
+.set-name input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.create-set-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.create-set-header h1 {
+    font-size: 35pt;
+    color: #386641;
+    margin: 0;
+}
+
+.create-set-header .save-btn {
+    padding: 10px 15px; 
+    background-color: white; 
+    color: #386641; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12pt; 
+    line-height: 1; 
+    transition: background-color 0.3s; 
+    font-family: 'Avenir', sans-serif; 
+}
+
+.create-set-header .save-btn:hover {
+    background-color: #F0F5ED;
+}
+
+#add-card {
+    padding: 10px 15px; 
+    background-color: white; 
+    color: #386641; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12pt; 
+    line-height: 1; 
+    transition: background-color 0.3s; 
+    font-family: 'Avenir', sans-serif; 
+}
+
+#add-card:hover {
+    background-color: #F0F5ED; 
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.edit-btn {
+    padding: 10px 15px; 
+    background-color: white; 
+    color: #386641; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12pt; 
+    line-height: 1; 
+    transition: background-color 0.3s; 
+    font-family: 'Avenir', sans-serif; 
+}
+
+.edit-btn:hover {
+    background-color: #F0F5ED;
 }
