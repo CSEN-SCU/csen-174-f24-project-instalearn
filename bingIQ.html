@@ -10,6 +10,7 @@
     <title>InstaLearn</title>
     <link rel="stylesheet" href="bingIQ.css">    
     <script src="imagesearch.js"></script> 
+    <!--<script src="translator.js"></script>-->
 </head>
 <body onload="document.forms.bing.query.focus();">
     <header class="header">
@@ -155,8 +156,12 @@
                 </div>
 
                 <!--ADD API DEMO HERE-->
-                <div class="set-card">Translation</div>
-                <div class="set-card">Sound</div>
+                <div class="set-card">
+                    <div id="_translation"></div>
+                </div>
+                <div class="set-card">
+                    <div id="_pronunciation"></div>
+                </div>
             </div>
         </main>
     </div>
