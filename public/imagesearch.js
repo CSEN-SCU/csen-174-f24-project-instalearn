@@ -1,4 +1,4 @@
-
+//import { translateAndT2S } from "translator.js";
 // cookie names for data we store
 // YOUR API KEY DOES NOT GO IN THIS CODE; don't paste it in.
 API_KEY_COOKIE   = "bing-search-api-key";
@@ -134,6 +134,20 @@ function renderRelatedItems(items) {
     //return html.join("\n\n");
 }
 
+//FUNCTIONS TO SHOW AUDIO AND TRANSLATION IN CARD DIVS
+function showAudio(audiofile){
+  var html = [];
+  temp = "<audio controls src='" + audiofile + "'>";
+  html.push(temp);
+  return html.join("");
+}
+
+function showTerm(term){
+  var html = [];
+  html.push(term);
+  return html.join("");
+}
+
 // render the search results given the parsed JSON response
 function renderSearchResults(results) {
 
@@ -141,6 +155,9 @@ function renderSearchResults(results) {
     var pagingLinks = renderPagingLinks(results);
     showDiv("paging1", pagingLinks);
     showDiv("paging2", pagingLinks);
+    //NEED WAY TO ADD OTHER FILE NAMES & TRANSLATIONS
+    showDiv("pronunciation", showAudio("bolo.mp3"));
+    showDiv("translation", showTerm("Bolo"));
     
     showDiv("results", renderImageResults(results.value));
     if (results.relatedSearches)
@@ -351,5 +368,7 @@ function doPrevSearchPage() {
 function newBingImageSearch(form) {
     form.offset.value = "0";
     form.stack.value = "[]";
+   //[portuguese, audio] = translateAndT2S(form.query.value);
+    //sshowDiv("translation", showTerm(portuguese));
     return bingImageSearch(form.query.value, bingSearchOptions(form), getSubscriptionKey());
 }
