@@ -1,23 +1,25 @@
 const { translate, speak } = require('google-translate-api-x');
 const { writeFileSync } = require('fs');
-
-word = 'cake'; //supports just one word
+worde = 'hand'; //supports just one word
 //inputArray = ["child", "cry", "snail"]; //supports an array of words (in case we want functionality where they can paste a bunch of words)
 
-translate(word, { from: 'en', to: 'pt' , autoCorrect: false, forceBatch: true})
-  .then(res => {
-    console.log(res.text); //=> I speak English
-    translated = res.text;
+async function translateAndT2S(word) {
+  try {
+      // query translation API for translated word
+      const translationResult = await translate(word, { from: 'en', to: 'pt', autoCorrect: false, forceBatch: true });
+      const translated = translationResult.text;
 
-    //figure out why u get rate limited for doing 2 requests in a row
-    speak(translated, {to: 'pt', forceBatch: true})
-    .then(res => {
-      writeFileSync(translated + '.mp3', res, {encoding:'base64'}); // Saves the mp3 to file
-    })
-    .catch(err =>{
-      console.error(err);
-    })
-  })
-  .catch(err => {
-    console.error(err);
-  });
+      // query translation API for audio for translated word
+      const audio = await speak(translated, { to: 'pt', forceBatch: true });
+
+      // Debugging: Save the mp3 to file
+      writeFileSync(`${translated}.mp3`, audio, { encoding: 'base64' });
+
+      // Return the translated text and audio as an array
+      return [translated, audio];
+  } catch (err) {
+      console.error("Error in translateAndT2S:", err);
+  }
+}
+module.exports = { translateAndT2S };
+
