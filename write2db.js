@@ -13,5 +13,5 @@ async function write2db() {
     
 }
 
-main();
+write2db();
 module.exports = { write2db };

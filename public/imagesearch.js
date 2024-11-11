@@ -1,4 +1,5 @@
-//import { translateAndT2S } from "translator.js";
+//import { translateAndT2S } from "translator.mjs";
+//const { translateAndT2S } = require ("translator.cjs");
 // cookie names for data we store
 // YOUR API KEY DOES NOT GO IN THIS CODE; don't paste it in.
 API_KEY_COOKIE   = "bing-search-api-key";
@@ -368,7 +369,7 @@ function doPrevSearchPage() {
 function newBingImageSearch(form) {
     form.offset.value = "0";
     form.stack.value = "[]";
-   //[portuguese, audio] = translateAndT2S(form.query.value);
-    //sshowDiv("translation", showTerm(portuguese));
+    //[portuguese, audio] = translateAndT2S(form.query.value);
+    //showDiv("translation", showTerm(portuguese));
     return bingImageSearch(form.query.value, bingSearchOptions(form), getSubscriptionKey());
 }
