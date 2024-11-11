@@ -368,7 +368,10 @@ function doPrevSearchPage() {
 function newBingImageSearch(form) {
     form.offset.value = "0";
     form.stack.value = "[]";
+    console.log(form.query.value);
+    document.getElementById("queried-word").textContent = form.query.value;
+        document.getElementById("queried-word-title").textContent = form.query.value;
    //[portuguese, audio] = translateAndT2S(form.query.value);
-    //sshowDiv("translation", showTerm(portuguese));
+    //showDiv("translation", showTerm(portuguese));
     return bingImageSearch(form.query.value, bingSearchOptions(form), getSubscriptionKey());
 }
