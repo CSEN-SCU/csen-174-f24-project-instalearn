@@ -233,7 +233,7 @@ body {
     margin: 0;
 }
 
-.create-set-header .save-btn {
+.save-btn {
     padding: 10px 15px; 
     background-color: white; 
     color: #386641; 
@@ -247,7 +247,7 @@ body {
     font-family: 'Avenir', sans-serif; 
 }
 
-.create-set-header .save-btn:hover {
+.save-btn:hover {
     background-color: #F0F5ED;
 }
 
