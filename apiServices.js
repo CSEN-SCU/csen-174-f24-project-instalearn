@@ -3,21 +3,20 @@ import { translate, speak } from 'google-translate-api-x';
 import { writeFileSync } from 'fs';
 
 async function fetchCardData(word) {
-    const image = await fetchImage(word);
     const [translation, audio] = await fetchTranslation(word);
+    const image = await fetchImage(translation);
     return { word, image, translation, audio };
 }
 
 //query the Bing image search API
 async function fetchImage(word) {
-    let subscriptionKey = 'key';
+    let subscriptionKey = '79fc2b92de414729be44ce7d760bec64';
     try{
         const res = await axios.get("https://api.bing.microsoft.com/v7.0/images/search", {
             headers : {
                 'Ocp-Apim-Subscription-Key' : subscriptionKey,
                 },
             params:{
-                mkt: "en-US",
                 q: word
             }
         });
@@ -49,6 +48,6 @@ async function fetchTranslation(word) {
         console.error("Error in translation fetch:", err);
     }
 }
-const fishcard = await fetchCardData("fish");
+const fishcard = await fetchCardData("apple");
 console.log(fishcard);
 
