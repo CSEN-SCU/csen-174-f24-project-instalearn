@@ -1,5 +1,5 @@
 //import { translateAndT2S } from "translator.mjs";
-//const { translateAndT2S } = require ("translator.cjs");
+const { translateAndT2S } = require('translator.cjs');
 // cookie names for data we store
 // YOUR API KEY DOES NOT GO IN THIS CODE; don't paste it in.
 API_KEY_COOKIE   = "bing-search-api-key";
