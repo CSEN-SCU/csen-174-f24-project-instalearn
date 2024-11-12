@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="databaseServices.js"></script>
 </head>
 <body>
 
@@ -28,9 +29,9 @@
         <h2 class="word-title" id="queried-word-title"></h2>
 
         <div class="result-details">
-            <div class="detail-box">Portuguese Translation</div>
-            <div class="detail-box">Image</div>
-            <div class="detail-box">Audio</div>
+            <div class="detail-box"><div id="_translation"></div></div>
+            <div class="detail-box"><div id="_image"></div></div>
+            <div class="detail-box"><div id="_pronunciation"></div></div>
         </div>
     </div>
 
@@ -39,7 +40,7 @@
     </div>
 </main>
 
-<script>
+<!--<script>
 const params = new URLSearchParams(window.location.search);
 const query = params.get("query");
 
@@ -47,7 +48,7 @@ if (query) {
     document.getElementById("queried-word").textContent = query;
     document.getElementById("queried-word-title").textContent = query;
 }
-</script>
+</script>-->
 
 </body>
 </html>
