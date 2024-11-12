@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
  });
 
  app.get('/search', (req, res) => {
-    res.sendFile('bingIQ.html', {root:'public'});
+    res.sendFile('search-results.html', {root:'public'});
  });
 
 app.listen(port, function () {
