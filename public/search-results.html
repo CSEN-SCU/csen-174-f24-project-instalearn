@@ -2,122 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <base target="_blank">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="imagesearch.js"></script>
 </head>
-<body onload="document.forms.bing.query.focus();">
+<body>
 
 <header class="header">
     <a href="index.html" class="logo">InstaLearn</a>
 
-    <!--<form action="search-results.html" method="get">-->
-        <!--<input type="text" name="query" placeholder="Search in English" id="term" class="search-bar" required autocomplete=off style="padding:10px">-->
-        <form name="bing" onsubmit="return newBingImageSearch(this)">
-            <input type="text" name="query" class="search-bar" id="term" placeholder="Search for terms" autocomplete=off style="padding:10px">
-
-            <div id="logo" style="display:none"><!-- logo block including search market/language -->
-                <p><select name="where">
-                        <option value="es-AR">Argentina (Spanish)</option>
-                        <option value="en-AU">Australia (English)</option>
-                        <option value="de-AT">Austria (German)</option>
-                        <option value="nl-BE">Belgium (Dutch)</option>
-                        <option value="fr-BE">Belgium (French)</option>
-                        <option value="pt-BR">Brazil (Portuguese)</option>
-                        <option value="en-CA">Canada (English)</option>
-                        <option value="fr-CA">Canada (French)</option>
-                        <option value="es-CL">Chile (Spanish)</option>
-                        <option value="da-DK">Denmark (Danish)</option>
-                        <option value="fi-FI">Finland (Finnish)</option>
-                        <option value="fr-FR">France (French)</option>
-                        <option value="de-DE">Germany (German)</option>
-                        <option value="zh-HK">Hong Kong (Traditional Chinese)</option>
-                        <option value="en-IN">India (English)</option>
-                        <option value="en-ID">Indonesia (English)</option>
-                        <option value="it-IT">Italy (Italian)</option>
-                        <option value="ja-JP">Japan (Japanese)</option>
-                        <option value="ko-KR">Korea (Korean)</option>
-                        <option value="en-MY">Malaysia (English)</option>
-                        <option value="es-MX">Mexico (Spanish)</option>
-                        <option value="nl-NL">Netherlands (Dutch)</option>
-                        <option value="en-NZ">New Zealand (English)</option>
-                        <option value="no-NO">Norway (Norwegian)</option>
-                        <option value="zh-CN">People's Republic of China (Chinese)</option>
-                        <option value="pl-PL">Poland (Polish)</option>
-                        <option value="pt-PT">Portugal (Portuguese)</option>
-                        <option value="en-PH">Philippines (English)</option>
-                        <option value="ru-RU">Russia (Russian)</option>
-                        <option value="ar-SA">Saudi Arabia (Arabic)</option>
-                        <option value="en-ZA">South Africa (English)</option>
-                        <option value="es-ES">Spain (Spanish)</option>
-                        <option value="sv-SE">Sweden (Swedish)</option>
-                        <option value="fr-CH">Switzerland (French)</option>
-                        <option value="de-CH">Switzerland (German)</option>
-                        <option value="zh-TW">Taiwan (Traditional Chinese)</option>
-                        <option value="tr-TR">Turkey (Turkish)</option>
-                        <option value="en-GB">United Kingdom (English)</option>
-                        <!--ADD "SELECTED" TO CHANGE DEFAULT CHOICE-->
-                        <option value="en-US" selected>United States (English)</option>
-                        <option value="es-US">United States (Spanish)</option>
-                    </select>
-            </div>
-            
-            <div id="query"><!-- query controls including search field and options -->   
-                    <!--<input type="text" name="query" id="term" placeholder="Search for terms" autocomplete=off style="padding:10px">-->
-            
-                    <p style="display:none">Aspect
-                        <!--ADD "CHECKED" TO CHANGE DEFAULT CHOICE-->
-                <input type=radio name="aspect" id="any" value="all" checked>
-                    <label for="any">Any</label>
-                <input type=radio name="aspect" id="square" value="square">
-                    <label for="square">Square</label>
-                <input type=radio name="aspect" id="wide" value="wide">
-                    <label for="wide">Wide</label>
-                <input type=radio name="aspect" id="tall" value="tall">
-                    <label for="tall">Tall</label>
-            
-                    &nbsp;&nbsp;&nbsp;Color
-                <select name="color">
-                    <!--ADD "SELECTED" TO CHANGE DEFAULT CHOICE-->
-                    <option value="" selected>Any</option>
-                    <option value="coloronly">Only Color</option>
-                    <option value="monochrome">Black and White</option>
-                    <option value="black">Black</option>
-                    <option value="blue">Blue</option>
-                    <option value="black">Brown</option>
-                    <option value="gray">Gray</option>
-                    <option value="green">Green</option>
-                    <option value="orange">Orange</option>
-                    <option value="pink">Pink</option>
-                    <option value="purple">Purple</option>
-                    <option value="red">Red</option>
-                    <option value="teal">Teal</option>
-                    <option value="white">White</option>
-                    <option value="yellow">Yellow</option>                
-                </select>
-            
-                    &nbsp;&nbsp;&nbsp;From
-                <select name="when">
-                    <!--ADD "SELECTED" TO CHANGE DEFAULT CHOICE-->
-                    <option value="" selected>All time</option>
-                    <option value="month">Past month</option>
-                    <option value="week">Past week</option>
-                    <option value="day">Last 24 hours</option>
-                </select>
-                
-                <!--ADD "CHECKED" TO CHANGE DEFAULT CHOICE-->
-                &nbsp;&nbsp;&nbsp;<input type=checkbox id="safe" name="safe" value="on" checked><label for="safe">SafeSearch</label>
-            
-                <!-- these hidden fields control paging -->
-                <input type=hidden name="count" value="25">
-                <input type=hidden name="offset" value="0">
-                <input type=hidden name="nextoffset" value="">    
-                <input type=hidden name="stack" value="[]">
-            </div>
-            </form>
-    <!--</form>-->
+    <form action="search-results.html" method="get">
+        <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
+    </form>
 
     <div class="header-buttons">
         <a href="create-new-set.html" class="btn">+ Create Set</a>
@@ -126,42 +22,32 @@
 </header>
 
 <main class="main-content">
-    <!-- The queried word will replace "Word" in the h1 and h2 elements below -->
     <h1>Search results for “<span id="queried-word"></span>”</h1>
 
     <div class="result-box">
         <h2 class="word-title" id="queried-word-title"></h2>
 
         <div class="result-details">
-            <div class="detail-box"><div id="_translation"></div></div>
-            <div class="detail-box"><div id="_results"></div></div>
-            <div class="detail-box"><div id="_pronunciation"></div></div>
+            <div class="detail-box">Portuguese Translation</div>
+            <div class="detail-box">Image</div>
+            <div class="detail-box">Audio</div>
         </div>
-        <div id="json">
-            <h3 style="display:none"><a href="#" onclick="return toggleDisplay('_json')">JSON</a></h3>
-            <div id="_json" style="display: none"></div>
-        </div>
-    
-        <div id="http">
-            <h3 style="display:none"><a href="#" onclick="return toggleDisplay('_http')">HTTP</a></h3>
-            <div id="_http" style="display: none"></div>
-        </div>
+    </div>
+
+    <div class="button-container">
+        <button type="button" id="add-card" class="btn">+ Add to set</button>
     </div>
 </main>
 
-<!--<script>
-    const params = new URLSearchParams(window.location.search);
-    //const query = params.get("query");
-    const query = document.getElementById(term);
-    console.log(_.isString(query));
-    //const parameters = query.split("&");
+<script>
+const params = new URLSearchParams(window.location.search);
+const query = params.get("query");
 
-    if (query) {
-        console.log(_.isString(query));
-        document.getElementById("queried-word").textContent = query;
-        document.getElementById("queried-word-title").textContent = query;
-    }
-</script>-->
+if (query) {
+    document.getElementById("queried-word").textContent = query;
+    document.getElementById("queried-word-title").textContent = query;
+}
+</script>
 
 </body>
 </html>
