@@ -1,17 +1,16 @@
-const { writeCard, readData } = require("./database/firebase.js");
-const { translateAndT2S } = require("./translator.js");
+import { writeCard } from "./databaseServices.js";
+import { translateAndT2S } from "./public/translator.js";
 
-async function write2db() {
+export async function write2db(word) {
     try{
-        const english = "child";
+        const english = word;
         const [portuguese, audio] = await translateAndT2S(english);
         await writeCard(english, english, portuguese, "idk", audio);
     }
     catch (err) {
         console.error("Error in writing to db:", err);
     }
-    
 }
 
-main();
-module.exports = { write2db };
+//write2db("apple");
+//write2db("orange");

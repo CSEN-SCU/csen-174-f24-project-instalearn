@@ -1,6 +1,6 @@
-const { translate, speak } = require('google-translate-api-x');
-const { writeFileSync } = require('fs');
-word = 'hand'; //supports just one word
+import { translate, speak } from 'google-translate-api-x';
+import { writeFileSync } from 'fs';
+ //supports just one word
 //inputArray = ["child", "cry", "snail"]; //supports an array of words (in case we want functionality where they can paste a bunch of words)
 
 function showDiv(id, html) {
@@ -23,7 +23,7 @@ function showTerm(term){
   return html.join("");
 }
 
-async function translateAndT2S(word) {
+export async function translateAndT2S(word) {
   console.log(word);
   try {
       // query translation API for translated word
@@ -37,8 +37,8 @@ async function translateAndT2S(word) {
       // Debugging: Save the mp3 to file
       writeFileSync(`${translated}.mp3`, audio, { encoding: 'base64' });
       //AN ATTEMPT TO SHOW ON HTML API RESULTS ;-;
-      showAudio("pronunciation", showAudio(`${translated}.mp3`));
-      showDiv("translation", showTerm(translated));
+      //showAudio("pronunciation", showAudio(`${translated}.mp3`));
+      //showDiv("translation", showTerm(translated));
 
       // Return the translated text and audio as an array
       return [translated, audio];
@@ -46,4 +46,3 @@ async function translateAndT2S(word) {
       console.error("Error in translateAndT2S:", err);
   }
 }
-module.exports = { translateAndT2S };
