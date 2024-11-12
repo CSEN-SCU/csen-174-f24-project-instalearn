@@ -44,8 +44,5 @@ export async function getSet(setid){
 }
 
 //debugging
-//writeCard("apple");
-//writeCard("orange");
-//writeCard("banana");
 //writeCardToSet("hand", "body", "userid1");
 //getSet("body");
