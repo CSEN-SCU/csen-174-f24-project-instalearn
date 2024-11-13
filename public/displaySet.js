@@ -1,4 +1,4 @@
-async function searchVocabularyCard(event) {
+async function searchSet(event) {
     event.preventDefault(); // Prevent form from refreshing the page
     const query = document.getElementById('search-form').query.value.trim();
     if (!query) return;
@@ -19,7 +19,7 @@ async function searchVocabularyCard(event) {
 }
 
 // Update HTML elements to display vocabulary card data
-function updateCardDisplay(data) {
+function updateSetDisplay(data) {
     document.getElementById("_translation").innerHTML = `<p>${data.portuguese}</p>`;
     document.getElementById("_image").innerHTML = `<img src="${data.image}" height=75%>`
     //document.getElementById("_image").innerHTML = `<img src="${data.image}" alt="${data.english} image" style="width: 100%; height: auto;">`;
