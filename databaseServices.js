@@ -10,8 +10,8 @@ initializeApp({
 
 const db = getFirestore();
 
-export async function writeCard(card, word, translated, image, sound) {
-  const docRef = db.collection('cards').doc(card);
+export async function writeCard(word, translated, image, sound) {
+  const docRef = db.collection('cards').doc(word);
   await docRef.set({
     english: word,
     portuguese: translated,
