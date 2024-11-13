@@ -21,6 +21,7 @@ async function searchVocabularyCard(event) {
 // Update HTML elements to display vocabulary card data
 function updateCardDisplay(data) {
     document.getElementById("_translation").innerHTML = `<p>${data.portuguese}</p>`;
-    document.getElementById("_image").innerHTML = `<img src="${data.image}" alt="${data.english} image" style="width: 100%; height: auto;">`;
+    document.getElementById("_image").innerHTML = `<iframe src="${data.image}" width="100%" height="250" style="border:none;"></iframe>`
+    //document.getElementById("_image").innerHTML = `<img src="${data.image}" alt="${data.english} image" style="width: 100%; height: auto;">`;
     document.getElementById("_audio").innerHTML = data.audio ? `<audio controls src="data:audio/mp3;base64, ${data.audio}"></audio>` : `<p>No audio available</p>`;
 }
