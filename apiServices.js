@@ -21,7 +21,7 @@ async function fetchImage(word) {
                 q: word
             }
         });
-        return res.data.value[0].webSearchUrl; //return the first result image URL
+        return res.data.value[0].thumbnailUrl; //return the first result image URL
     }
     catch (err){
         console.error('Error fetching translation:', err);
@@ -51,4 +51,7 @@ async function fetchTranslation(word) {
 }
 //const fishcard = await fetchCardData("apple");
 //console.log(fishcard);
+
+// const fish = await fetchImage("fish");
+// console.log(fish);
 
