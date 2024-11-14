@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Set Title - InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="displaySet.js"></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
 
 <main class="main-content">
     <div class="create-set-header">
-        <h1>Set Title</h1>
+        <div class= "_setTitle" id = "header"></div>
         <button type="button" class="btn edit-btn">Edit</button>
     </div>
     
@@ -49,6 +50,11 @@
         </div>
     </form>    
 </main>
-
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    var query = urlParams.get('query');
+    query = query.charAt(0).toUpperCase() + query.slice(1);
+    document.getElementById('header').innerHTML = `<h1>${query}</h1>`;
+</script>
 </body>
 </html>

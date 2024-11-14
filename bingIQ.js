@@ -17,6 +17,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/getVocabularyCard', getVocabCard);
+app.get('/getVocabularySet', getVocabSet);
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.listen(port, function () {

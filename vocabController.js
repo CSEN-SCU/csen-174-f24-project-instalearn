@@ -13,3 +13,13 @@ export async function getVocabCard(req, res) {
     //console.log(card);
     res.json(card);
 }
+
+export async function getVocabSet(req, res) {
+    const { setName } = req.query;
+    let vocabSet = await getSet(setName);
+    if (!vocabSet) {
+        return 1;
+    }
+    //console.log(card);
+    res.json(vocabSet);
+}
