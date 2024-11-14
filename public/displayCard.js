@@ -1,12 +1,24 @@
 async function searchVocabularyCard(event) {
-    event.preventDefault(); // Prevent form from refreshing the page
+    event.preventDefault(); 
     const query = document.getElementById('search-form').query.value.trim();
     if (!query) return;
 
-    document.getElementById("queried-word").textContent = query;
-    document.getElementById("queried-word-title").textContent = query;
+    window.location.href = `search-results.html?query=${encodeURIComponent(query)}`;
+}
 
-    // Fetch data from the backend
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('query');
+    
+    if (query) {
+        document.getElementById("queried-word").textContent = query;
+        document.getElementById("queried-word-title").textContent = query;
+
+        fetchVocabularyData(query);
+    }
+};
+
+async function fetchVocabularyData(query) {
     try {
         const response = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error('Failed to fetch data');
@@ -18,7 +30,6 @@ async function searchVocabularyCard(event) {
     }
 }
 
-// Update HTML elements to display vocabulary card data
 function updateCardDisplay(data) {
     document.getElementById("_translation").innerHTML = `<p>${data.portuguese}</p>`;
     document.getElementById("_image").innerHTML = `<img src="${data.image}" height=75%>`
