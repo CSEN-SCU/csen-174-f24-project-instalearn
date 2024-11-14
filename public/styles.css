@@ -251,7 +251,7 @@ body {
     background-color: #F0F5ED;
 }
 
-#add-card {
+#set-dropdown, #add-card {
     padding: 10px 15px; 
     background-color: white; 
     color: #386641; 
@@ -262,9 +262,10 @@ body {
     line-height: 1; 
     transition: background-color 0.3s; 
     font-family: 'Avenir', sans-serif; 
+    appearance: none;
 }
 
-#add-card:hover {
+#set-dropdown:hover, #add-card:hover {
     background-color: #F0F5ED; 
 }
 
@@ -272,6 +273,7 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    gap: 10px;
 }
 
 .edit-btn {
