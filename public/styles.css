@@ -89,8 +89,9 @@ body {
 
 .sets-container {
     display: flex; 
-    justify-content: space-between; 
-    flex-wrap: wrap; 
+    flex-wrap: wrap; /* Allow wrapping to the next row */
+    justify-content: space-between; /* Even spacing between rows */
+    gap: 15px; /* Set uniform spacing between cards */
 }
 
 .set-card {
@@ -100,9 +101,8 @@ body {
     padding: 15px; 
     font-size: 15pt;
     color: #386641; 
-    flex: 1 1 300px; 
+    width: calc((100% - 30px) / 3); /* Ensure three cards fit in one row with a 15px gap */
     height: 215px; 
-    margin: 10px;
     display: flex; 
     justify-content: center; 
     align-items: center; 
