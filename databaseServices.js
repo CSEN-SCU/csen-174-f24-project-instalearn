@@ -43,6 +43,15 @@ export async function getSet(setid){
   return set.exists ? set.data() : null;
 }
 
+export async function createSet(userid, setName) {
+  const setRef = db.collection('sets').doc(userid).collection("sets").doc(setName); 
+  await setRef.set({
+    setName: setName,
+    createdAt: new Date()
+  });
+  console.log(`Set "${setName}" created successfully for user "${userid}"`);
+}
+
 //debugging
 //writeCardToSet("hand", "body", "userid1");
 //getSet("body");
