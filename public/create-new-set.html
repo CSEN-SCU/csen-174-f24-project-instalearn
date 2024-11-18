@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Set - InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="createSet.js" defer></script>
 </head>
 <body>
 
@@ -24,20 +25,19 @@
 <main class="main-content">
     <div class="create-set-header">
         <h1>Create a new set</h1>
+        
     </div>
     
-    <form id="create-set-form" class="create-set-form">
+    <form id = "create-set-form" class="create-set-form">
         <div class="set-name">
             <input type="text" id="set-name" name="set-name" placeholder="Enter set name" required>
         </div>
 
         <div class="button-container">
-            <button type="submit" id="save-button" class="btn save-btn">Save</button>
+            <button id="save-button" type="submit" class="btn save-btn">Save</button>
         </div>
     </form>    
 </main>
-
-<script src="createSet.js" type="module" defer></script>
 
 </body>
 </html>
