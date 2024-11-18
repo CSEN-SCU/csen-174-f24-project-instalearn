@@ -35,13 +35,23 @@ export async function writeCardToSet(word, setid, userid){
   console.log('Card written to set successfully');
 }
 
-export async function getSet(setid){
-    console.log(setid);
-    const set = await db.collection("sets").doc("userid1").collection("sets").doc(setid).collection("cards").get();
-  set.forEach((doc) => {
-    console.log(doc.id, '=>', doc.data());
+// export async function getSet(setid){
+//     console.log(setid);
+//     const set = await db.collection("sets").doc("userid1").collection("sets").doc(setid).collection("cards").get();
+//   set.forEach((doc) => {
+//     console.log(doc.id, '=>', doc.data());
+//   });
+//   return set.exists ? set.data() : null;
+// }
+
+export async function getSet(query) {
+  const setCollection = await db.collection("sets").doc("userid1").collection("sets").doc(query).collection("cards").get();
+  const cards = [];
+  setCollection.forEach(doc => {
+      cards.push({ id: doc.id, ...doc.data() });
   });
-  return set.exists ? set.data() : null;
+
+  return cards;
 }
 
 //debugging
