@@ -1,3 +1,5 @@
+import { getVocabSet } from "../vocabController";
+
 async function searchSet() {
     //GRAB SET TITLE FROM THE URL QUERY PARAMS
     const urlParams = new URLSearchParams(window.location.search);
@@ -5,16 +7,18 @@ async function searchSet() {
     console.log(query);
     if (!query) return;
 
-    // Fetch data from the backend
-    // try {
-    //     const response = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(query)}`);
-    //     if (!response.ok) throw new Error('Failed to fetch data');
+    console.log(getVocabSet(query));
 
-    //     const data = await response.json();
+    // Fetch data from the backend
+     try {
+         const response = await fetch(`http://localhost:8000/getVocabularySet?setid=${encodeURIComponent(query)}`);
+         if (!response.ok) throw new Error('Failed to fetch data');
+
+         const data = await response.json();
     //     updateCardDisplay(data);
-    // } catch (error) {
-    //     console.error('Error fetching vocabulary set:', error);
-    // }
+     } catch (error) {
+         console.error('Error fetching vocabulary set:', error);
+     }
 }
 
 // Update HTML elements to display vocabulary card data

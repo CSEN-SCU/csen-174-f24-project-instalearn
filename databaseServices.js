@@ -36,6 +36,7 @@ export async function writeCardToSet(word, setid, userid){
 }
 
 export async function getSet(setid){
+    console.log(setid);
     const set = await db.collection("sets").doc("userid1").collection("sets").doc(setid).collection("cards").get();
   set.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
@@ -45,4 +46,4 @@ export async function getSet(setid){
 
 //debugging
 //writeCardToSet("hand", "body", "userid1");
-//getSet("body");
+getSet("fruit");

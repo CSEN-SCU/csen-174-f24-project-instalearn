@@ -1,4 +1,4 @@
-import { getCard, writeCard } from './databaseServices.js';
+import { getCard, writeCard, getSet } from './databaseServices.js';
 import { fetchCardData } from './apiServices.js';
 
 export async function getVocabCard(req, res) {
@@ -16,10 +16,11 @@ export async function getVocabCard(req, res) {
 
 export async function getVocabSet(req, res) {
     const { setName } = req.query;
+    console.log(setName);
     let vocabSet = await getSet(setName);
     if (!vocabSet) {
         return 1;
     }
-    //console.log(card);
+    console.log(vocabSet);
     res.json(vocabSet);
 }
