@@ -24,19 +24,20 @@
 <main class="main-content">
     <div class="create-set-header">
         <h1>Create a new set</h1>
-        
     </div>
     
-    <form action="#" method="POST" class="create-set-form">
+    <form id="create-set-form" class="create-set-form">
         <div class="set-name">
             <input type="text" id="set-name" name="set-name" placeholder="Enter set name" required>
         </div>
 
         <div class="button-container">
-            <button type="submit" class="btn save-btn">Save</button>
+            <button type="submit" id="save-button" class="btn save-btn">Save</button>
         </div>
     </form>    
 </main>
+
+<script src="createSet.js" type="module" defer></script>
 
 </body>
 </html>
