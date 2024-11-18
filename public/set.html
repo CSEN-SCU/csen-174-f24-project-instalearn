@@ -23,38 +23,32 @@
 
 <main class="main-content">
     <div class="create-set-header">
-        <div class= "_setTitle" id = "header"></div>
+        <h1>Set Title</h1>
         <button type="button" class="btn edit-btn">Edit</button>
     </div>
     
-    <div id="set-cards"></div>
+    <form action="#" method="POST" class="create-set-form">
+        <div class="result-box">
+            <h2 class="word-title">
+                <label for="word">Word</label>
+            </h2>    
+
+            <div class="result-details">
+                <div class="detail-box">
+                    <label for="translation">Portuguese Translation</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="image">Image</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="audio">Audio</label>
+                </div>
+            </div>
+        </div>
+    </form>    
 </main>
-<script>
-        async function fetchVocabularySet(query) {
-            const vocabContainer = document.getElementById("set-cards");
-
-            try {
-                // Fetch the vocabulary set
-                const response = await fetch(`http://localhost:8000/getVocabularySet?query=${encodeURIComponent(query)}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                
-                const vocabularySet = await response.json();
-
-                // Fetch details for each card
-                const flashcardPromises = vocabularySet.map(async (item) => {
-                    
-                    const cardResponse = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(item.id)}`);
-                    if (!cardResponse.ok) {
-                        throw new Error(`HTTP error fetching card ${item.id}! Status: ${cardResponse.status}`);
-                    }
-                    const flashcardData = await cardResponse.json();
-                    return { ...item, ...flashcardData }; // Merge the vocabulary item with its flashcard details
-                });
-
-                const detailedVocabulary = await Promise.all(flashcardPromises);
-
                 // Display the detailed vocabulary
                 detailedVocabulary.forEach((item) => {
                     const card = document.createElement("div");
