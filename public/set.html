@@ -23,73 +23,33 @@
 
 <main class="main-content">
     <div class="create-set-header">
-        <div class= "_setTitle" id = "header"></div>
+        <h1>Set Title</h1>
         <button type="button" class="btn edit-btn">Edit</button>
     </div>
     
-    <div id="set-cards"></div>
+    <form action="#" method="POST" class="create-set-form">
+        <div class="result-box">
+            <h2 class="word-title">
+                <label for="word">Word</label>
+            </h2>    
+
+            <div class="result-details">
+                <div class="detail-box">
+                    <label for="translation">Portuguese Translation</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="image">Image</label>
+                </div>
+    
+                <div class="detail-box">
+                    <label for="audio">Audio</label>
+                </div>
+            </div>
+        </div>
+    </form>    
 </main>
-<script>
-        async function fetchVocabularySet(query) {
-            const vocabContainer = document.getElementById("set-cards");
 
-            try {
-                // Fetch the vocabulary set
-                const response = await fetch(`http://localhost:8000/getVocabularySet?query=${encodeURIComponent(query)}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                
-                const vocabularySet = await response.json();
-
-                // Fetch details for each card
-                const flashcardPromises = vocabularySet.map(async (item) => {
-                    
-                    const cardResponse = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(item.id)}`);
-                    if (!cardResponse.ok) {
-                        throw new Error(`HTTP error fetching card ${item.id}! Status: ${cardResponse.status}`);
-                    }
-                    const flashcardData = await cardResponse.json();
-                    return { ...item, ...flashcardData }; // Merge the vocabulary item with its flashcard details
-                });
-
-                const detailedVocabulary = await Promise.all(flashcardPromises);
-
-                // Display the detailed vocabulary
-                detailedVocabulary.forEach((item) => {
-                    const card = document.createElement("div");
-                    card.classList.add("result-details");
-                    card.innerHTML = `
-                        <div class="result-box" id="res-deets">
-                            <h2 class="word-title">
-                                <label for="word">${item.english}</label>
-                            </h2>
-                            <div class="result-details">
-                                <div class="detail-box">${item.portuguese}</div>
-                                <div class="detail-box"><img src=${item.image} height=75%></div>
-                                <div class="detail-box"><audio controls src="data:audio/mp3;base64, ${item.audio}"></audio></div>
-                            </div>
-                        </div>
-                    `;
-                    vocabContainer.appendChild(card);
-                });
-            } catch (error) {
-                console.error("Error fetching vocabulary set:", error);
-                vocabContainer.textContent = "Error loading vocabulary set.";
-            }
-        }
-        // Extract query parameter from URL and fetch the vocabulary set
-        const params = new URLSearchParams(window.location.search);
-        var query = params.get('query');
-        if (query) {
-            fetchVocabularySet(query);
-            query = query.charAt(0).toUpperCase() + query.slice(1);
-            console.log(query);
-            document.getElementById('header').innerHTML = `<h1>${query}</h1>`;
-        } else {
-            document.getElementById("vocabulary").textContent = "No query provided in the URL.";
-        }
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -102,5 +62,6 @@
         }
     });
 </script>
+
 </body>
 </html>
