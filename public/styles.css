@@ -101,7 +101,9 @@ body {
     padding: 15px; 
     font-size: 15pt;
     color: #386641; 
-    width: calc((100% - 30px) / 3); /* Ensure three cards fit in one row with a 15px gap */
+    /*width: calc((100% - 30px) / 3); /* Ensure three cards fit in one row with a 15px gap */
+    flex: 1 1 300px; 
+    margin: 10px;
     height: 215px; 
     display: flex; 
     justify-content: center; 
