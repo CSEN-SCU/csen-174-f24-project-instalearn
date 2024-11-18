@@ -1,5 +1,5 @@
 
-import { getCard, writeCard, getSet, createSet } from './databaseServices.js';
+import { getCard, writeCard, getSet, createSet, getSetsByUser} from './databaseServices.js';
 import { fetchCardData } from './apiServices.js';
 
 export async function getVocabCard(req, res) {
@@ -67,5 +67,25 @@ export async function addSet(req, res) {
     } catch (error) {
         console.error('Error creating set:', error);
         res.status(500).json({ error: 'Failed to create set' });
+    }
+}
+export async function getUserSets(req, res) {
+    const { userId } = req.query;
+
+    if (!userId) {
+        return res.status(400).json({ error: "userId query parameter is required" });
+    }
+
+    try {
+        const sets = await getSetsByUser(userId);  // Fetch sets by user ID
+
+        if (!sets || sets.length === 0) {
+            return res.status(404).json({ error: "No sets found for this user" });
+        }
+
+        res.json(sets);  // Respond with the list of sets
+    } catch (error) {
+        console.error("Error fetching user sets:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 }

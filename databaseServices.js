@@ -62,7 +62,22 @@ export async function createSet(userid, setName) {
   });
   console.log(`Set "${setName}" created successfully for user "${userid}"`);
 }
-
+export async function getSetsByUser(userId) {
+      try {
+          const setsCollection = await db.collection('sets').doc(userId).collection('sets').get();
+  
+          if (setsCollection.empty) {
+              console.log(`No sets found for user ${userId}`);
+              return [];
+          }
+  
+          // Map over the documents to get the set names
+          return setsCollection.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      } catch (error) {
+          console.error("Error fetching sets by user:", error);
+          throw error;
+      }
+  }
 //debugging
 //writeCardToSet("hand", "body", "userid1");
-getSet("fruit");
+//getSet("fruit");

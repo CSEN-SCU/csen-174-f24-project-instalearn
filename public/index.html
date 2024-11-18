@@ -23,11 +23,39 @@
 
 <main class="main-content">
     <h1>Your Sets</h1>
-    <div class="sets-container"> <!--TO DO: populate this div with sets from database-->
-        <a href="set.html?query=fruit" class="set-card">Fruit</a>
-        <a href="set.html?query=body" class="set-card">Body</a>
+    <div class="sets-container-wrapper">
+        <div class="sets-container"> <!--TO DO: populate this div with sets from database-->
+            <a href="set.html?query=fruit" class="set-card">Fruit</a>
+            <a href="set.html?query=body" class="set-card">Body</a>
+        </div>
     </div>
 </main>
+
+<script>
+    async function fetchUserSets(userId) {
+        try {
+            const response = await fetch(`http://localhost:8000/getUserSets?userId=${encodeURIComponent(userId)}`);
+            if (!response.ok) throw new Error('Failed to fetch user sets');
+
+            const sets = await response.json();
+
+            // Update the UI with the list of sets
+            const setsContainer = document.getElementById('sets');
+            sets.forEach(set => {
+                const setElement = document.createElement('a');
+                setElement.classList.add("set-card");
+                var setName = set.id;
+                setElement.href = "set.html?query=" + setName;
+                setElement.textContent = setName.charAt(0).toUpperCase() + setName.slice(1);
+                setsContainer.appendChild(setElement);
+            });
+        } catch (error) {
+            console.error('Error fetching user sets:', error);
+        }
+    }
+    // Example: Call this function with a userId
+    fetchUserSets('userid1');
+</script>
 
 </body>
 </html>
