@@ -78,7 +78,6 @@
                 vocabContainer.textContent = "Error loading vocabulary set.";
             }
         }
-
         // Extract query parameter from URL and fetch the vocabulary set
         const params = new URLSearchParams(window.location.search);
         var query = params.get('query');
@@ -90,6 +89,18 @@
         } else {
             document.getElementById("vocabulary").textContent = "No query provided in the URL.";
         }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const setName = urlParams.get("setName");
+
+        if (setName) {
+            document.querySelector(".create-set-header h1").textContent = setName;
+        } else {
+            alert("Set name not found.");
+        }
+    });
 </script>
 </body>
 </html>

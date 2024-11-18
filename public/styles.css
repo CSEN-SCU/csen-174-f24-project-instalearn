@@ -89,8 +89,9 @@ body {
 
 .sets-container {
     display: flex; 
-    justify-content: space-between; 
-    flex-wrap: wrap; 
+    flex-wrap: wrap; /* Allow wrapping to the next row */
+    justify-content: space-between; /* Even spacing between rows */
+    gap: 15px; /* Set uniform spacing between cards */
 }
 
 .set-card {
@@ -100,9 +101,8 @@ body {
     padding: 15px; 
     font-size: 15pt;
     color: #386641; 
-    flex: 1 1 300px; 
+    width: calc((100% - 30px) / 3); /* Ensure three cards fit in one row with a 15px gap */
     height: 215px; 
-    margin: 10px;
     display: flex; 
     justify-content: center; 
     align-items: center; 
@@ -251,7 +251,7 @@ body {
     background-color: #F0F5ED;
 }
 
-#add-card {
+#set-dropdown, #add-card {
     padding: 10px 15px; 
     background-color: white; 
     color: #386641; 
@@ -262,9 +262,10 @@ body {
     line-height: 1; 
     transition: background-color 0.3s; 
     font-family: 'Avenir', sans-serif; 
+    appearance: none;
 }
 
-#add-card:hover {
+#set-dropdown:hover, #add-card:hover {
     background-color: #F0F5ED; 
 }
 
@@ -272,6 +273,7 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    gap: 10px;
 }
 
 .edit-btn {
