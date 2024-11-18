@@ -1,6 +1,6 @@
 //import http from 'http';
 import express from "express";
-import { getVocabCard, addSet, getVocabSet,getUserSets } from './vocabController.js';
+import { getVocabCard, addSet, getVocabSet, getUserSets } from './vocabController.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
