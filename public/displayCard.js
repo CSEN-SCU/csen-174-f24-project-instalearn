@@ -1,6 +1,7 @@
 async function searchVocabularyCard(event) {
     event.preventDefault(); 
-    const query = document.getElementById('search-form').query.value.trim();
+    var query = document.getElementById('search-form').query.value.trim();
+    query = query.toLowerCase();
     if (!query) return;
 
     window.location.href = `search-results.html?query=${encodeURIComponent(query)}`;

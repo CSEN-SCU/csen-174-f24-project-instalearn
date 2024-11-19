@@ -4,8 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     createSetButton.addEventListener("click", async (event) => {
         event.preventDefault(); // Prevent default form submission behavior
 
-        const setName = document.getElementById("set-name").value.trim();
+        var setName = document.getElementById("set-name").value.trim();
         const user = "userid1"; // Replace with dynamic user identification logic
+
+        setName = setName.toLowerCase();
 
         if (!setName) {
             alert("Set name is required!");
@@ -29,4 +31,5 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('An error occurred while adding the set.');
         }
     });
+    
 });
