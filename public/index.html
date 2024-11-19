@@ -36,9 +36,15 @@
             if (!response.ok) throw new Error('Failed to fetch user sets');
 
             const sets = await response.json();
-           // console.log(sets);
 
-            // Update the UI with the list of sets
+            sets.sort((a, b) => {
+                const dateA = a.createdAt ? new Date(a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) : new Date(0);
+                const dateB = b.createdAt ? new Date(b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1e6) : new Date(0);
+                return dateB - dateA; 
+            });
+
+            //console.log("Sorted sets by date:", sets);
+            
             const setsContainer = document.getElementById('sets');
             console.log(setsContainer);
             sets.forEach(set => {
