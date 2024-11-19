@@ -75,7 +75,13 @@
                 });
             } catch (error) {
                 console.error("Error fetching vocabulary set:", error);
-                vocabContainer.textContent = "Error loading vocabulary set.";
+                console.log(error);
+                if (error = "Error: HTTP error! Status: 404 at fetchVocabularySet (set.html?query=Hi:40:27)"){
+                    vocabContainer.textContent = "No words are in this set.";
+                }
+                else{
+                    vocabContainer.textContent = "Error loading vocabulary set.";
+                }
             }
         }
         // Extract query parameter from URL and fetch the vocabulary set
