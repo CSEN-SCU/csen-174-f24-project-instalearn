@@ -36,11 +36,8 @@
     </div>
 
     <div class="button-container"> 
-        <select id="set-dropdown" class="btn">
-            <option value="" disabled selected>Select a set</option>
-            <!--TO DO: populate this dropdown with sets from database-->
-        </select>
-        <button type="button" id="add-card" class="btn">+ Add</button>
+        <button type="button" id="add-card" class="btn" onclick="dropShow()">+ Add to set</button>
+        <div id="myDropdown" class="dropdown-content"></div>
     </div>
 </main>
 <script>
