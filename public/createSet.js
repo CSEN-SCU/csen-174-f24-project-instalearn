@@ -1,8 +1,9 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     const createSetButton = document.getElementById("save-button");
-    //console.log("button clicked");
-    createSetButton.addEventListener("click", async () => {
+
+    createSetButton.addEventListener("click", async (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
         const setName = document.getElementById("set-name").value.trim();
         const user = "userid1"; // Replace with dynamic user identification logic
 
@@ -20,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!response.ok) throw new Error(`Error: ${response.statusText}`);
             const result = await response.json();
-            alert(result.message);
+            //alert(result.message);
+
+            window.location.href = "index.html";  //redirect to home page
         } catch (error) {
             console.error(error);
             alert('An error occurred while adding the set.');
