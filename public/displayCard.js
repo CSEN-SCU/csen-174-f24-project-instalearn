@@ -62,13 +62,13 @@ async function fetchUserSetOptions(userId) {
                   
                   try {
                     console.log(query, setName, userId);
+                    alert(query + ' successfully added to set ' + setName);
                     // Make a POST request to the backend
                     const response = await fetch('http://localhost:8000/addCardToSet', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ word: query, setid: setName, userid: userId })
                     });
-                      console.log("222: ", response.body);
                     if (!response.ok) throw new Error('Failed to add card to set');
                     
                     const result = await response.json();
