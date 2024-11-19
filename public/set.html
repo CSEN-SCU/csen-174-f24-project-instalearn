@@ -42,6 +42,11 @@
                 
                 const vocabularySet = await response.json();
 
+                // Update the header and page title dynamically, even if no vocabulary is found
+                const setName = query.charAt(0).toUpperCase() + query.slice(1); // Capitalize the first letter
+                document.getElementById('header').innerHTML = `<h1>${setName}</h1>`;
+                document.title = `${setName} - InstaLearn`; // Update the title dynamically
+
                 // Fetch details for each card
                 const flashcardPromises = vocabularySet.map(async (item) => {
                     
@@ -54,6 +59,29 @@
                 });
 
                 const detailedVocabulary = await Promise.all(flashcardPromises);
+
+                if (vocabularySet.length === 0) {
+                // If no words are in the set, display a message
+                vocabContainer.textContent = "No words are in this set.";
+            } else {
+                // Fetch details for each card and add sorting logic by createdAt
+                const flashcardPromises = vocabularySet.map(async (item) => {
+                    const cardResponse = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(item.id)}`);
+                    if (!cardResponse.ok) {
+                        throw new Error(`HTTP error fetching card ${item.id}! Status: ${cardResponse.status}`);
+                    }
+                    const flashcardData = await cardResponse.json();
+                    return { ...item, ...flashcardData }; // Merge the vocabulary item with its flashcard details
+                });
+
+                const detailedVocabulary = await Promise.all(flashcardPromises);
+
+                // Sort vocabulary set by createdAt timestamp (newest first)
+                detailedVocabulary.sort((a, b) => {
+                    const dateA = a.createdAt ? new Date(a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) : new Date(0);
+                    const dateB = b.createdAt ? new Date(b.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) : new Date(0);
+                    return dateB - dateA;
+                });
 
                 // Display the detailed vocabulary
                 detailedVocabulary.forEach((item) => {
@@ -73,6 +101,8 @@
                     `;
                     vocabContainer.appendChild(card);
                 });
+            }
+            
             } catch (error) {
                 console.error("Error fetching vocabulary set:", error);
                 console.log(error);

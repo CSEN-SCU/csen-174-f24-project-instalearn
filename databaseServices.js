@@ -27,14 +27,18 @@ export async function getCard(word) {
   return card.exists ? card.data() : null;
 }
 
-export async function writeCardToSet(word, setid, userid){
-    const docRef = db.collection('sets').doc(userid).collection("sets").doc(setid).collection("cards").doc(word);
+export async function writeCardToSet(word, setid, userid) {
+  const timestamp = new Date(); 
+
+  const docRef = db.collection('sets').doc(userid).collection("sets").doc(setid).collection("cards").doc(word);
+  
   await docRef.set({
-    cardid: word
+      cardid: word,
+      createdAt: timestamp 
   });
+
   console.log('Card written to set successfully');
 }
-
 // export async function getSet(setid){
 //     console.log(setid);
 //     const set = await db.collection("sets").doc("userid1").collection("sets").doc(setid).collection("cards").get();
