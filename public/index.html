@@ -5,51 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-    
-        // Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyAQ8JW1j_GOV8ldqKCLJRQwC0RqMT3GeZM",
-          authDomain: "instalearn-51628.firebaseapp.com",
-          projectId: "instalearn-51628",
-          storageBucket: "instalearn-51628.firebasestorage.app",
-          messagingSenderId: "774690452779",
-          appId: "1:774690452779:web:7e378a292d64db14ce016e"
-        };
-    
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-    
-        // Google Sign-In
-        async function loginWithGoogle() {
-          const provider = new GoogleAuthProvider();
-          try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            const idToken = await user.getIdToken();
-    
-            // Send the ID token to the server for verification
-            const response = await fetch("/verify-token", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ idToken }),
-            });
-    
-            if (response.ok) {
-              window.location.href = "/"; // Redirect to the application
-            } else {
-              console.error("Authentication failed");
-            }
-          } catch (error) {
-            console.error("Error during login:", error);
-          }
-        }
-    
-        window.loginWithGoogle = loginWithGoogle;
-      </script>
 </head>
 <body>
 

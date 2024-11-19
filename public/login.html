@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - InstaLearn</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Optional styling -->
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAQ8JW1j_GOV8ldqKCLJRQwC0RqMT3GeZM",
+      authDomain: "instalearn-51628.firebaseapp.com",
+      projectId: "instalearn-51628",
+      storageBucket: "instalearn-51628.firebasestorage.app",
+      messagingSenderId: "774690452779",
+      appId: "1:774690452779:web:7e378a292d64db14ce016e"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Google Sign-In Function
+    async function loginWithGoogle() {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+
+        // Send the ID token to the server for verification
+        const response = await fetch("/verify-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idToken }),
+        });
+
+        if (response.ok) {
+          // Redirect to the protected application
+          window.location.href = "/app";
+        } else {
+          console.error("Authentication failed");
+          alert("Authentication failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        alert("An error occurred during login. Please try again.");
+      }
+    }
+
+    // Attach loginWithGoogle function to the global scope
+    window.loginWithGoogle = loginWithGoogle;
+  </script>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Welcome to InstaLearn</h1>
+    <p>Please sign in with Google to continue</p>
+    <button class="login-button" onclick="loginWithGoogle()">Login with Google</button>
+  </div>
+</body>
+</html>
