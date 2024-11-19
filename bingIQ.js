@@ -1,6 +1,6 @@
 //import http from 'http';
 import express from "express";
-import { getVocabCard, addSet, getVocabSet } from './vocabController.js';
+import { getVocabCard, addSet, getVocabSet, getUserSets } from './vocabController.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -19,6 +19,7 @@ app.use(express.json());
 
 app.get('/getVocabularyCard', getVocabCard);
 app.get('/getVocabularySet', getVocabSet);
+app.get('/getUserSets', getUserSets);
 app.post('/addSet', addSet);
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 

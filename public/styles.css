@@ -87,29 +87,35 @@ body {
     margin-bottom: 20px; 
 }
 
+.sets-container-wrapper {
+    display: flex;
+    justify-content: center; 
+    margin: 0 20px; 
+}
+
 .sets-container {
-    display: flex; 
-    flex-wrap: wrap; /* Allow wrapping to the next row */
-    justify-content: space-between; /* Even spacing between rows */
-    gap: 15px; /* Set uniform spacing between cards */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px;
+    max-width: calc(3 * 450px + 30px); 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .set-card {
-    background-color: #F9F4E7; 
-    border: 1px solid #386641; 
-    border-radius: 4px; 
-    padding: 15px; 
+    background-color: #F9F4E7;
+    border: 1px solid #386641;
+    border-radius: 4px;
+    padding: 15px;
     font-size: 15pt;
-    color: #386641; 
-    /*width: calc((100% - 30px) / 3); /* Ensure three cards fit in one row with a 15px gap */
-    flex: 1 1 300px; 
-    margin: 10px;
-    height: 215px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    box-sizing: border-box; 
+    color: #386641;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     text-decoration: none;
+    width: 100%; 
+    height: 215px;
 }
 
 .create-set-card {
