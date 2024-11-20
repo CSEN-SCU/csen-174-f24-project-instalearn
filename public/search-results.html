@@ -12,13 +12,14 @@
 <header class="header">
     <a href="index.html" class="logo">InstaLearn</a>
 
-    <form id="search-form" onsubmit="return searchVocabularyCard(event)">
+    <form action="/search-results.html" method="get">
         <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
     </form>
 
     <div class="header-buttons">
         <a href="/create-new-set.html" class="btn">+ Create Set</a>
         <button class="logout">Log Out</button>
+        <a href="about.html" class="info-button" aria-label="About InstaLearn">ⓘ</a>
     </div>
 </header>
 
