@@ -77,6 +77,36 @@ body {
     white-space: nowrap;
 }
 
+.info-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    color: #386641;
+    text-decoration: none;
+    border: 2px solid #386641;
+    border-radius: 50%;
+    background-color: white;
+    margin-left: 15px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.info-button:hover {
+    background-color: #F0F5ED;
+    color: #386641;
+    transform: scale(1.1);
+}
+
+.info-button:focus {
+    outline: none;
+}
+
+.header .info-button {
+    margin-left: 0px; 
+}
+
 .main-content {
     padding: 0 20px; 
 }
