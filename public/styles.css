@@ -123,11 +123,21 @@ body {
     margin: 0 20px; 
 }
 
-.sets-container {
+#sets {
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
     gap: 15px;
     max-width: calc(3 * 450px + 30px); 
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+#premade-sets {
+    margin-bottom: 20px; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    max-width: calc(4 * 350px + 30px); 
     width: 100%; 
     box-sizing: border-box;
 }
