@@ -342,15 +342,11 @@ body {
     z-index: 1;
 }
   
-  .dropdown-content a {
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-<<<<<<< Updated upstream
-  }
-  
-=======
 }
 
 footer {
@@ -361,4 +357,3 @@ footer {
     text-align: center;
     font-size: 10pt;
 }
->>>>>>> Stashed changes
