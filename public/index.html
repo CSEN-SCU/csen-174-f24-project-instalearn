@@ -25,43 +25,69 @@
 <main class="main-content">
     <h1>Your Sets</h1>
     <div class="sets-container-wrapper">
-        <div id="sets" class="sets-container">
-        </div>
+        <div id="sets" class="sets-container"></div>
+    </div>
+
+    <h1>Premade Sets</h1>
+    <div class="sets-container-wrapper">
+        <div id="premade-sets" class="sets-container"></div>
     </div>
 </main>
 
 <script>
-    async function fetchUserSets(userId) {
+    async function fetchUserSets(userId, containerId) {
         try {
             const response = await fetch(`http://localhost:8000/getUserSets?userId=${encodeURIComponent(userId)}`);
-            if (!response.ok) throw new Error('Failed to fetch user sets');
-
+            if (!response.ok) {
+                if (response.status === 404) {
+                    displayNoSetsMessage(containerId, "You have no sets yet.");
+                    return;
+                }
+                throw new Error('Failed to fetch user sets');
+            }
+            
             const sets = await response.json();
+
+            if (sets.length === 0) {
+                displayNoSetsMessage(containerId, "You have no sets yet.");
+                return;
+            }
 
             sets.sort((a, b) => {
                 const dateA = a.createdAt ? new Date(a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) : new Date(0);
                 const dateB = b.createdAt ? new Date(b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1e6) : new Date(0);
-                return dateB - dateA; 
+                return dateB - dateA;
             });
 
-            //console.log("Sorted sets by date:", sets);
-            
-            const setsContainer = document.getElementById('sets');
-            console.log(setsContainer);
+            const setsContainer = document.getElementById(containerId);
+
             sets.forEach(set => {
                 const setElement = document.createElement('a');
                 setElement.classList.add("set-card");
-                var setName = set.id;
-                setElement.href = "set.html?query=" + setName;
-                setElement.textContent = setName.charAt(0).toUpperCase() + setName.slice(1);
+                const setName = set.id;
+                setElement.href = `set.html?query=${setName}`;
+                setElement.textContent = setName.charAt(0).toUpperCase() + setName.slice(1); // Capitalize first letter
                 setsContainer.appendChild(setElement);
             });
-         } catch (error) {
-        console.error('Error fetching user sets:', error);
+
+        } catch (error) {
+            console.error(`Error fetching sets for ${userId}:`, error);
+            displayNoSetsMessage(containerId, "An error occurred while fetching sets. Please try again later.");
         }
     }
-    // Example: Call this function with a userId
-    fetchUserSets('userid1');
+
+    function displayNoSetsMessage(containerId, message) {
+        const setsContainer = document.getElementById(containerId);
+        const noSetsMessage = document.createElement('p');
+        noSetsMessage.textContent = message;
+        setsContainer.appendChild(noSetsMessage);
+    }
+
+    //User sets
+    fetchUserSets('currentUserId', 'sets'); 
+
+    //Premade Sets
+    fetchUserSets('userid1', 'premade-sets'); 
 </script>
 
 </body>
