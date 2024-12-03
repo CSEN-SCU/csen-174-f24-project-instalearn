@@ -1,5 +1,6 @@
 //import http from 'http';
 import express from "express";
+import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet } from './vocabController.js';
 import bodyParser from "body-parser";
 import { initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
@@ -33,7 +34,7 @@ initializeApp({
 const app = express();
 var port = 8000;
 
-app.use(cors({}));
+app.use(cors());
 app.use(bodyParser.json());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 
 // Serve static files (e.g., index.html)
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
 
 // Route to verify ID token from the client
 app.post("/verify-token", async (req, res) => {
@@ -62,6 +64,13 @@ app.post("/verify-token", async (req, res) => {
 app.get("/app", authenticate, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.get('/getVocabularyCard', getVocabCard);
+app.get('/getVocabularySet', getVocabSet);
+app.get('/getUserSets', getUserSets);
+app.post('/addSet', addSet);
+app.post('/addCardToSet', addCardToSet);
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get('/search', (req, res) => {
   res.sendFile('bingIQ.html', {root:'public'});

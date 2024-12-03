@@ -4,31 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InstaLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
 <header class="header">
     <a href="index.html" class="logo">InstaLearn</a>
 
-    <form action="search-results.html" method="get">
+    <form action="/search-results.html" method="get">
         <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
     </form>
 
     <div class="header-buttons">
-        <a href="create-new-set.html" class="btn">+ Create Set</a>
-        <button class="logout">Logout</button>
+        <a href="/create-new-set.html" class="btn">+ Create Set</a>
+        <button class="logout">Log Out</button>
+        <a href="about.html" class="info-button" aria-label="About InstaLearn">ⓘ</a>
     </div>
 </header>
 
 <main class="main-content">
     <h1>Your Sets</h1>
-    <div class="sets-container">
-        <a href="set.html" class="set-card">Set Name</a>
-        <a href="set.html" class="set-card">Set Name</a>
-        <a href="set.html" class="set-card">Set Name</a>
+    <div class="sets-container-wrapper">
+        <div id="sets" class="sets-container"></div>
+    </div>
+
+    <h1>Premade Sets</h1>
+    <div class="sets-container-wrapper">
+        <div id="premade-sets" class="sets-container"></div>
     </div>
 </main>
+
+<script>
+    async function fetchUserSets(userId, containerId) {
+        try {
+            const response = await fetch(`http://localhost:8000/getUserSets?userId=${encodeURIComponent(userId)}`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    displayNoSetsMessage(containerId, "You have no sets yet.");
+                    return;
+                }
+                throw new Error('Failed to fetch user sets');
+            }
+            
+            const sets = await response.json();
+
+            if (sets.length === 0) {
+                displayNoSetsMessage(containerId, "You have no sets yet.");
+                return;
+            }
+
+            sets.sort((a, b) => {
+                const dateA = a.createdAt ? new Date(a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1e6) : new Date(0);
+                const dateB = b.createdAt ? new Date(b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1e6) : new Date(0);
+                return dateB - dateA;
+            });
+
+            const setsContainer = document.getElementById(containerId);
+
+            sets.forEach(set => {
+                const setElement = document.createElement('a');
+                setElement.classList.add("set-card");
+                const setName = set.id;
+                setElement.href = `set.html?query=${setName}`;
+                setElement.textContent = setName.charAt(0).toUpperCase() + setName.slice(1); // Capitalize first letter
+                setsContainer.appendChild(setElement);
+            });
+
+        } catch (error) {
+            console.error(`Error fetching sets for ${userId}:`, error);
+            displayNoSetsMessage(containerId, "An error occurred while fetching sets. Please try again later.");
+        }
+    }
+
+    function displayNoSetsMessage(containerId, message) {
+        const setsContainer = document.getElementById(containerId);
+        const noSetsMessage = document.createElement('p');
+        noSetsMessage.textContent = message;
+        setsContainer.appendChild(noSetsMessage);
+    }
+
+    //User sets
+    fetchUserSets('currentUserId', 'sets'); 
+
+    //Premade Sets
+    fetchUserSets('userid1', 'premade-sets'); 
+</script>
 
 </body>
 </html>

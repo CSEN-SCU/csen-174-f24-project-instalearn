@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - InstaLearn</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="displayCard.js" defer></script>
 </head>
 <body>
 
 <header class="header">
     <a href="index.html" class="logo">InstaLearn</a>
 
-    <form action="search-results.html" method="get">
+    <form action="/search-results.html" method="get">
         <input type="text" name="query" placeholder="Search in English" class="search-bar" required>
     </form>
 
     <div class="header-buttons">
-        <a href="create-new-set.html" class="btn">+ Create Set</a>
+        <a href="/create-new-set.html" class="btn">+ Create Set</a>
         <button class="logout">Log Out</button>
+        <a href="about.html" class="info-button" aria-label="About InstaLearn">ⓘ</a>
     </div>
 </header>
 
@@ -28,26 +30,39 @@
         <h2 class="word-title" id="queried-word-title"></h2>
 
         <div class="result-details">
-            <div class="detail-box">Portuguese Translation</div>
-            <div class="detail-box">Image</div>
-            <div class="detail-box">Audio</div>
+            <div class="detail-box" id = "_translation">Portuguese Translation</div>
+            <div class="detail-box" id = "_image">Image</div>
+            <div class="detail-box" id = "_audio">Audio</div>
         </div>
     </div>
 
-    <div class="button-container">
-        <button type="button" id="add-card" class="btn">+ Add to set</button>
+    <div class="button-container"> 
+        <button type="button" id="add-card" class="btn" onclick="dropShow()">+ Add to set</button>
+        <div id="myDropdown" class="dropdown-content"></div>
     </div>
 </main>
-
 <script>
-const params = new URLSearchParams(window.location.search);
-const query = params.get("query");
+    async function fetchInitialSearch(query) {
+        // Fetch data from the backend
+        try {
+            const response = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(query)}`);
+            if (!response.ok) throw new Error('Failed to fetch data');
 
-if (query) {
-    document.getElementById("queried-word").textContent = query;
-    document.getElementById("queried-word-title").textContent = query;
-}
+            const data = await response.json();
+            document.getElementById("_translation").innerHTML = `<p>${data.portuguese}</p>`;
+            document.getElementById("_image").innerHTML = `<img src="${data.image}" height=75%>`
+            document.getElementById("_audio").innerHTML = data.audio ? `<audio controls src="data:audio/mp3;base64, ${data.audio}"></audio>` : `<p>No audio available</p>`;
+        } catch (error) {
+            console.error('Error fetching vocabulary card:', error);
+        }
+    }
+    const params = new URLSearchParams(window.location.search);
+    var query = params.get('query');
+    if (query) {
+        fetchInitialSearch(query);
+        document.getElementById("queried-word").textContent = query;
+        document.getElementById("queried-word-title").textContent = query;        
+    }
 </script>
-
 </body>
 </html>

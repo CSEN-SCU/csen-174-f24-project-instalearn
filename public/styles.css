@@ -77,6 +77,36 @@ body {
     white-space: nowrap;
 }
 
+.info-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    color: #386641;
+    text-decoration: none;
+    border: 2px solid #386641;
+    border-radius: 50%;
+    background-color: white;
+    margin-left: 15px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.info-button:hover {
+    background-color: #F0F5ED;
+    color: #386641;
+    transform: scale(1.1);
+}
+
+.info-button:focus {
+    outline: none;
+}
+
+.header .info-button {
+    margin-left: 0px; 
+}
+
 .main-content {
     padding: 0 20px; 
 }
@@ -87,27 +117,45 @@ body {
     margin-bottom: 20px; 
 }
 
-.sets-container {
-    display: flex; 
-    justify-content: space-between; 
-    flex-wrap: wrap; 
+.sets-container-wrapper {
+    display: flex;
+    justify-content: center; 
+    margin: 0 20px; 
+}
+
+#sets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px;
+    max-width: calc(3 * 450px + 30px); 
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+#premade-sets {
+    margin-bottom: 20px; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    max-width: calc(4 * 350px + 30px); 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 .set-card {
-    background-color: #F9F4E7; 
-    border: 1px solid #386641; 
-    border-radius: 4px; 
-    padding: 15px; 
+    background-color: #F9F4E7;
+    border: 1px solid #386641;
+    border-radius: 4px;
+    padding: 15px;
     font-size: 15pt;
-    color: #386641; 
-    flex: 1 1 300px; 
-    height: 215px; 
-    margin: 10px;
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    box-sizing: border-box; 
+    color: #386641;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     text-decoration: none;
+    width: 100%; 
+    height: 215px;
 }
 
 .create-set-card {
@@ -251,7 +299,7 @@ body {
     background-color: #F0F5ED;
 }
 
-#add-card {
+#set-dropdown, #add-card {
     padding: 10px 15px; 
     background-color: white; 
     color: #386641; 
@@ -262,9 +310,10 @@ body {
     line-height: 1; 
     transition: background-color 0.3s; 
     font-family: 'Avenir', sans-serif; 
+    appearance: none;
 }
 
-#add-card:hover {
+#set-dropdown:hover, #add-card:hover {
     background-color: #F0F5ED; 
 }
 
@@ -272,6 +321,7 @@ body {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+    gap: 10px;
 }
 
 .edit-btn {
@@ -290,4 +340,30 @@ body {
 
 .edit-btn:hover {
     background-color: #F0F5ED;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    background-color: #F0F5ED;
+    color: #386641;
+    text-align: center;
+    font-size: 10pt;
 }
