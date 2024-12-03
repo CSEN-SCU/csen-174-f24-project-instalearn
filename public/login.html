@@ -24,24 +24,33 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     // Google Sign-In Function
     async function loginWithGoogle() {
       const provider = new GoogleAuthProvider();
       try {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
-        const idToken = await user.getIdToken();
+        const idToken = await user.getIdToken();  
 
         // Send the ID token to the server for verification
         const response = await fetch("/verify-token", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json", 
+            "Authorization": `Bearer ${idToken}`
+          },
           body: JSON.stringify({ idToken }),
         });
 
         if (response.ok) {
           // Redirect to the protected application
-          window.location.href = "/app";
+          const htmlResponse = await fetch("/index.html"); // Fetch the desired HTML file
+          const indexHtml = await htmlResponse.text(); // Get the file content as text
+          document.body.innerHTML = indexHtml; // Replace the current content with the new HTML
         } else {
           console.error("Authentication failed");
           alert("Authentication failed. Please try again.");
