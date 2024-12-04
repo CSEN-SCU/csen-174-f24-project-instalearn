@@ -48,9 +48,7 @@
 
         if (response.ok) {
           // Redirect to the protected application
-          const htmlResponse = await fetch("/index.html"); // Fetch the desired HTML file
-          const indexHtml = await htmlResponse.text(); // Get the file content as text
-          document.body.innerHTML = indexHtml; // Replace the current content with the new HTML
+          window.location.href = "/index.html";
         } else {
           console.error("Authentication failed");
           alert("Authentication failed. Please try again.");
