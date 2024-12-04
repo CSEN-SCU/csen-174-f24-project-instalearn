@@ -6,6 +6,7 @@
     <title>Search Results - InstaLearn</title>
     <link rel="stylesheet" href="/styles.css">
     <script src="displayCard.js" defer></script>
+    <script src="fid.js"></script>
 </head>
 <body>
 
@@ -63,6 +64,11 @@
         document.getElementById("queried-word").textContent = query;
         document.getElementById("queried-word-title").textContent = query;        
     }
+
+    perfMetrics.onFirstInputDelay(function(delay, evt) {
+        console.log('First Input Delay', delay);
+        console.log('Event details', evt);
+    });
 </script>
 </body>
 </html>

@@ -2,11 +2,15 @@
 
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getPerformance } from "firebase/performance";
 import serviceAccount from "./database/creds.json" assert { type: "json" };
 
 initializeApp({
   credential: cert(serviceAccount)
 });
+
+// Initialize Performance Monitoring and get a reference to the service
+const perf = getPerformance(app);
 
 const db = getFirestore();
 
@@ -81,6 +85,20 @@ export async function getSetsByUser(userId) {
       console.error("Error fetching sets by user:", error);
       throw error;
     }
+}
+
+export async function premadeUse(){
+  document.querySelector('#button').addEventListener('click', () => {
+    const premadeTrace = perf.trace('premade_click');
+    premadeTrace.start();
+  
+    // Simulate work after button click
+    setTimeout(() => {
+      premadeTrace.stop();
+      console.log('Premade set click trace completed');
+    }, 500);
+  });
+
 }
 
 //const sets = await getSetsByUser("userid1");

@@ -11,7 +11,7 @@ export async function fetchCardData(word) {
 
 //query the Bing image search API
 async function fetchImage(word) {
-    let subscriptionKey = '79fc2b92de414729be44ce7d760bec64';
+    let subscriptionKey = '02bd4abba1da45218285359503abc2de';
     try{
         const res = await axios.get("https://api.bing.microsoft.com/v7.0/images/search", {
             headers : {
