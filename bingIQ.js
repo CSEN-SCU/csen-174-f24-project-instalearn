@@ -27,9 +27,9 @@ async function authenticate(req, res, next) {
   }
 }
 
-/*initializeApp({
+initializeApp({
   credential: cert(serviceAccount),
-});*/
+});
 
 const app = express();
 var port = 8000;
