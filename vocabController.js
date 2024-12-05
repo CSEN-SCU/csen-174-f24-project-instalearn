@@ -1,5 +1,5 @@
 
-import { getCard, writeCard, getSet, createSet, getSetsByUser, writeCardToSet } from './databaseServices.js';
+import { getCard, writeCard, getSet, createSet, getSetsByUser, writeCardToSet, deleteSetCard } from './databaseServices.js';
 import { fetchCardData } from './apiServices.js';
 
 export async function getVocabCard(req, res) {
@@ -107,4 +107,20 @@ export async function addCardToSet(req, res) {
             console.error("Error adding card to set:", error);
             res.status(500).json({ error: "Internal server error" });
         }
+}
+
+export async function deleteCard(req, res){
+    const { userid, setid, word } = req.body;
+    console.log(userid, setid, word);
+
+    if (!word || !setid || !userid){
+        return res.status(400).json({error: "Missing required parameters: userid, setid, word"});
+    }
+
+    try{
+        deleteSetCard(userid, setid, word);
+    } catch (error){
+        console.error("Error deleting card from set:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
 }

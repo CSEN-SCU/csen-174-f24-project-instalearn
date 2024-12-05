@@ -1,6 +1,6 @@
 //import http from 'http';
 import express from "express";
-import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet } from './vocabController.js';
+import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet, deleteCard } from './vocabController.js';
 import bodyParser from "body-parser";
 import { initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
@@ -27,9 +27,9 @@ async function authenticate(req, res, next) {
   }
 }
 
-initializeApp({
-  credential: cert(serviceAccount),
-});
+// initializeApp({
+//   credential: cert(serviceAccount),
+// });
 
 const app = express();
 var port = 8000;
@@ -70,6 +70,7 @@ app.get('/getVocabularySet', getVocabSet);
 app.get('/getUserSets', getUserSets);
 app.post('/addSet', addSet);
 app.post('/addCardToSet', addCardToSet);
+app.post('/deleteCard', deleteCard);
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get('/search', (req, res) => {

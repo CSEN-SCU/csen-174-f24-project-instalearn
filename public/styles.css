@@ -204,6 +204,8 @@ body {
     text-align: left;
     padding-left: 10px;
     margin-top: 0; 
+    display: flex;
+    justify-content: space-between;
 }
 
 .word-title input {
@@ -366,4 +368,21 @@ footer {
     color: #386641;
     text-align: center;
     font-size: 10pt;
+}
+
+.del {
+    padding: 10px 15px; 
+    color: #386641;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 20pt; 
+    font-weight: bold;
+    font-family: 'Avenir', sans-serif; 
+    border: none;
+    background: none;
+}
+
+.del:hover {
+    color: #BC4749; 
+    font-weight: bold;
 }

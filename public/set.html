@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Set Title - InstaLearn</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="editSet.js" defer></script>
 </head>
 <body>
 
@@ -25,7 +26,8 @@
 <main class="main-content">
     <div class="create-set-header">
         <div class= "_setTitle" id = "header"></div>
-        <button type="button" class="btn edit-btn">Edit</button>
+        <button type="button" class="btn edit-btn" id="edit-btn">Edit</button>
+        <button type="button" class="btn edit-btn" id="done-btn" style="display: none" onClick="window.location.reload();">Done</button>
     </div>
     
     <div id="set-cards"></div>
@@ -90,9 +92,9 @@
                     card.classList.add("result-details");
                     card.innerHTML = `
                         <div class="result-box" id="res-deets">
-                            <h2 class="word-title">
-                                <label for="word">${item.english}</label>
-                            </h2>
+                            <div class="word-title">
+                                <h2 for="word">${item.english}</h2>
+                            </div>
                             <div class="result-details">
                                 <div class="detail-box">${item.portuguese}</div>
                                 <div class="detail-box"><img src=${item.image} height=75%></div>

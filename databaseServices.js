@@ -83,6 +83,16 @@ export async function getSetsByUser(userId) {
     }
 }
 
+export async function deleteSetCard(userId, setName, term) {
+  try {
+    console.log(setName, term);
+    await db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards').doc(term).delete();
+    console.log("Document successfully deleted!");
+  } catch (error) {
+    console.error("Error removing document: ", error);
+  }
+}
+
 //const sets = await getSetsByUser("userid1");
 //console.log(sets);
 
