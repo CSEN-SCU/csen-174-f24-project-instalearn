@@ -110,15 +110,19 @@ export async function addCardToSet(req, res) {
 }
 
 export async function deleteCard(req, res){
-    const { userid, setid, word } = req.body;
-    console.log(userid, setid, word);
+    const { selectedCards, setid, userid } = req.body;
+    console.log(selectedCards, setid, userid);
+    console.log(selectedCards[0])
 
-    if (!word || !setid || !userid){
-        return res.status(400).json({error: "Missing required parameters: userid, setid, word"});
+    if (!selectedCards || !setid || !userid){
+        return res.status(400).json({error: "Missing required parameters: userid, setid, selectedCards"});
     }
 
     try{
-        deleteSetCard(userid, setid, word);
+        selectedCards.forEach(word => {
+            deleteSetCard(userid, setid, word);
+        })
+        res.status(201).json({ message: 'Words deleted successfully' });
     } catch (error){
         console.error("Error deleting card from set:", error);
         res.status(500).json({error: "Internal server error"});

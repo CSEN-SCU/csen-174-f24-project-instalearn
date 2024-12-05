@@ -1,16 +1,19 @@
 let deletedTerms = [];
 
+//Grab userid and set variable
+var userid = 'userid1';
+
+//get setid
+var setid = params.get('query');
+setid = setid.toLowerCase();
+console.log(setid);
+
 //when user clicks edit button...
 const editBtn = document.getElementById("edit-btn");
+const doneBtn = document.getElementById("done-btn");
 editBtn.addEventListener('click', async (event) => {
-    //get setid
-    const params = new URLSearchParams(window.location.search);
-    var setid = params.get('query');
-    setid = setid.toLowerCase();
-    console.log(setid);
     //hide edit-btn, show done-btn
     editBtn.style.display = 'none';
-    const doneBtn = document.getElementById("done-btn");
     doneBtn.style.display = 'block';
     //add clickable x per card that appears
     var cardHeader = document.getElementsByClassName("word-title");
@@ -20,8 +23,7 @@ editBtn.addEventListener('click', async (event) => {
         deleteLabel.textContent = "X";
         cardTitle.appendChild(deleteLabel);
     });
-    console.log(cardHeader);
-    //When "X" clicked, get term name and call to database to delete
+    //when "X" clicked, get term name
     var closebtns = document.getElementsByClassName("del");
     Array.prototype.forEach.call(closebtns, function(cardClose) {
         cardClose.addEventListener("click", async (event) => {
@@ -34,33 +36,44 @@ editBtn.addEventListener('click', async (event) => {
     }); 
 });
 
-//Grab userid and set variable
-//asdfasdfasdf
-
-const setElement = document.getElementById("done-btn");
-setElement.addEventListener('click', async (event) => {
-
-});
-
-// const setElement = document.getElementById("edit-btn");
-// setElement.addEventListener('click', async (event) => {
-//     event.preventDefault(); // Prevent default link behavior
+//when user clicks done button...
+doneBtn.addEventListener('click', async (event) => {
+    //hide edit-btn, show done-btn
+    editBtn.style.display = 'block';
+    doneBtn.style.display = 'none';
+    //remove clickable x per card that appears
+    var xBtn = document.getElementsByClassName("del");
+    console.log(xBtn);
+    // Convert the live HTMLCollection to a static array
+    var xBtnArray = Array.from(xBtn);
+    xBtnArray.forEach(function(delBtn) {
+    // Clear card divs that are officially deleted
+        if (delBtn.parentNode.parentNode.style.display == 'none') {
+            delBtn.parentNode.parentNode.parentNode.innerHTML = '';
+        }
+        // Remove the x button
+        delBtn.remove();
+    });
+    var clearedDivs = document.getElementsByClassName("result-details");
+    var clearDivArray = Array.from(clearedDivs);
+    clearDivArray.forEach(function(emptyDiv){
+        if(emptyDiv.innerHTML == ''){
+            emptyDiv.remove();
+        }
+    });
     
-//     try {
-//       console.log(query, setName, userId);
-//       alert(query + ' successfully added to set ' + setName);
-//       // Make a POST request to the backend
-//       const response = await fetch('http://localhost:8000/deleteCard', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ word: query, setid: setName, userid: userId })
-//       });
-//       if (!response.ok) throw new Error('Failed to add card to set');
-      
-//       const result = await response.json();
-//       alert(result.message); // Notify user of success
-//     } catch (error) {
-//       console.error('Error adding card to set:', error);
-//       alert('Failed to add card to set');
-//     }
-// });
+    try {
+        console.log(userid, setid, deletedTerms);
+        // Make a POST request to the backend
+        const response = await fetch('http://localhost:8000/deleteCard', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ selectedCards: deletedTerms, setid: setid, userid: userid })
+        });
+        if (!response.ok) throw new Error('Failed to delete card from set');
+        const result = await response.json();
+        alert(result.message); // Notify user of success
+    } catch (error) {
+        console.error('Error deleting card from set:', error);
+    }
+});
