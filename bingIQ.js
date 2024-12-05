@@ -6,7 +6,7 @@ import { initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import path from "path";
 import { fileURLToPath } from "url";
-import serviceAccount from "./database/creds.json" assert { type: "json"}; // Update path to our Firebase service account key
+//import serviceAccount from "./database/creds.json" with { type: "json"}; // Update path to our Firebase service account key
 import cors from "cors";
 
 // Middleware to verify the ID token

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault(); // Prevent default form submission behavior
 
         var setName = document.getElementById("set-name").value.trim();
-        const user = "userid1"; // Replace with dynamic user identification logic
+        const user = "currentuserId"; // Replace with dynamic user identification logic
 
         setName = setName.toLowerCase();
 
