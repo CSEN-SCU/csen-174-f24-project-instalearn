@@ -10,6 +10,10 @@ export async function getVocabCard(req, res) {
         // Fetch from APIs if not in Firestore
         card = await fetchCardData(word);
         await writeCard(word, card.portuguese, card.image, card.audio);
+        console.log("Data from API");
+    }
+    else{
+        console.log("Data from Firebase");
     }
     //console.log(card);
     res.json(card);
