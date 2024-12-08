@@ -129,21 +129,6 @@ export async function deleteCard(req, res){
     }
 }
 
-// export async function deleteSet(req, res){
-//     const { setName, userId } = req.body;
-//     if(!setName){
-//         return res.status(400).json({error: "Missing required parameters: setName"});
-//     }
-//     try{
-//         console.log(setName, userId);
-//         deleteWholeSet(setName, userId);
-//         res.status(201).json({ message: 'Set deleted successfully' });
-//     } catch (error){
-//         console.error("Error deleting set:", error);
-//         res.status(500).json({error: "Internal server error"});
-//     }
-// }
-
 export async function deleteSet(req, res){
     console.log("Request received:", req.body);
     const { setName, userId } = req.body;

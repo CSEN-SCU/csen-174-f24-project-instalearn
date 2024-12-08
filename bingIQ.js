@@ -51,9 +51,7 @@ app.use(express.json());
 
 //log incoming requests
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url} ${req.body}`);
-  const { x, y } = req.body;
-  console.log(x, y);
+  console.log(`${req.method} ${req.url}`);
   next();
 });
 

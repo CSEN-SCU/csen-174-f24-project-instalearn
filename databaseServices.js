@@ -94,39 +94,6 @@ export async function deleteSetCard(userId, setName, term) {
   }
 }
 
-// export async function deleteWholeSet(setName, userId){
-//   try {
-//     console.log(setName, term);
-//     //delete all the doc cards in given set
-//     const cardsCollection = db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards');
-//     const cardsSnapshot = await cardsCollection.get();
-//     const deletePromises = cardsSnapshot.docs.map((doc) => doc.ref.delete());
-//     await Promise.all(deletePromises);
-//     //delete cards collection
-//     await db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards').delete();
-//     //delete doc set
-//     await db.collection('sets').doc(userId).collection('sets').doc(setName).delete();
-//   } catch (error) {
-//     console.error("Error removing document: ", error);
-//   }
-// }
-
-// export async function deleteWholeSet(setName, userId){
-//   try {
-//     console.log(setName, userId);
-//     const cardsCollection = db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards');
-//     const cardsSnapshot = await cardsCollection.get();
-//     if (!cardsSnapshot){
-//       console.log("NAUR")
-//     }
-//     else{
-//       console.log(cardsSnapshot);
-//     }
-//   } catch (error) {
-//     console.error("Error removing document: ", error);
-//   }
-// }
-
 export async function deleteWholeSet(setName, userId){
   try {
     // Reference to the cards collection

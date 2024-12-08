@@ -95,7 +95,7 @@ delSetBtn.addEventListener('click', async (event) => {
         if (!response.ok) throw new Error('Failed to delete set');
         const result = await response.json();
         alert(result.message); // Notify user of success
-        window.location.href = '/index.html';
+        window.location.href = '/index.html'; //redirect user to home page to see set was deleted successfully
     } catch (error) {
         console.error('Error deleting set:', error);
     }
