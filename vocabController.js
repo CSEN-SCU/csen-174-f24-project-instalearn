@@ -1,5 +1,5 @@
 
-import { getCard, writeCard, getSet, createSet, getSetsByUser, writeCardToSet, deleteSetCard } from './databaseServices.js';
+import { getCard, writeCard, getSet, createSet, getSetsByUser, writeCardToSet, deleteSetCard, deleteWholeSet } from './databaseServices.js';
 import { fetchCardData } from './apiServices.js';
 
 export async function getVocabCard(req, res) {
@@ -126,5 +126,37 @@ export async function deleteCard(req, res){
     } catch (error){
         console.error("Error deleting card from set:", error);
         res.status(500).json({error: "Internal server error"});
+    }
+}
+
+// export async function deleteSet(req, res){
+//     const { setName, userId } = req.body;
+//     if(!setName){
+//         return res.status(400).json({error: "Missing required parameters: setName"});
+//     }
+//     try{
+//         console.log(setName, userId);
+//         deleteWholeSet(setName, userId);
+//         res.status(201).json({ message: 'Set deleted successfully' });
+//     } catch (error){
+//         console.error("Error deleting set:", error);
+//         res.status(500).json({error: "Internal server error"});
+//     }
+// }
+
+export async function deleteSet(req, res){
+    console.log("Request received:", req.body);
+    const { setName, userId } = req.body;
+
+    if (!setName || !userId) {
+        return res.status(400).json({ message: "Missing required fields: setName or userId" });
+    }
+
+    try {
+        deleteWholeSet(setName, userId);
+        res.status(200).json({ message: `Set "${setName}" deleted successfully.` });
+    } catch (error) {
+        console.error("Error deleting set:", error);
+        res.status(500).json({ message: "Failed to delete set." });
     }
 }

@@ -1,6 +1,6 @@
 //import http from 'http';
 import express from "express";
-import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet, deleteCard } from './vocabController.js';
+import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet, deleteCard, deleteSet } from './vocabController.js';
 import bodyParser from "body-parser";
 import { initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
@@ -49,6 +49,14 @@ app.get("/", (req, res) => {
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
+//log incoming requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} ${req.body}`);
+  const { x, y } = req.body;
+  console.log(x, y);
+  next();
+});
+
 // Route to verify ID token from the client
 app.post("/verify-token", async (req, res) => {
   const { idToken } = req.body;
@@ -71,6 +79,7 @@ app.get('/getUserSets', getUserSets);
 app.post('/addSet', addSet);
 app.post('/addCardToSet', addCardToSet);
 app.post('/deleteCard', deleteCard);
+app.post('/deleteSet', deleteSet);
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get('/search', (req, res) => {
