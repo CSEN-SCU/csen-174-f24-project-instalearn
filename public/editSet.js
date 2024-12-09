@@ -9,6 +9,9 @@ var userid = 'userid1';
 if (userid == "userid1"){
     editBtn.style.display = 'none';
 }
+else{
+    editBtn.style.display = 'block';
+}
 
 //get setid
 var setid = params.get('query');
@@ -106,11 +109,17 @@ delSetBtn.addEventListener('click', async (event) => {
 });
 
 exportBtn.onmouseover = function() {
-    document.getElementById("export-alert").style.display = "block";
+    var alerts = document.getElementsByClassName("export-alert");
+    Array.prototype.forEach.call(alerts, function(alert) {
+        alert.style.display = "block";
+    });
 };
 
 exportBtn.onmouseout = function(){
-    document.getElementById("export-alert").style.display = "none";
+    var alerts = document.getElementsByClassName("export-alert");
+    Array.prototype.forEach.call(alerts, function(alert) {
+        alert.style.display = "none";
+    });
 }
 
 exportBtn.addEventListener('click', async (event) => {
