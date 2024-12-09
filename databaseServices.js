@@ -1,5 +1,6 @@
 //Interfaces with Firestore to save and retrieve vocabulary cards and user sets.
 
+import e from 'express';
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import serviceAccount from "./database/creds.json" assert { type: "json" };
@@ -83,9 +84,51 @@ export async function getSetsByUser(userId) {
     }
 }
 
+export async function deleteSetCard(userId, setName, term) {
+  try {
+    console.log(setName, term);
+    await db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards').doc(term).delete();
+    console.log("Document successfully deleted!");
+  } catch (error) {
+    console.error("Error removing document: ", error);
+  }
+}
+
+export async function deleteWholeSet(setName, userId){
+  try {
+    // Reference to the cards collection
+    const cardsCollection = db.collection('sets').doc(userId).collection('sets').doc(setName).collection('cards');
+
+    // Fetch all documents in the collection
+    const snapshot = await cardsCollection.get();
+
+    if (snapshot.empty) {
+      console.log("No cards found to delete.");
+    } else {
+      // Use a batch to delete all cards
+      const batch = db.batch();
+      snapshot.docs.forEach((doc) => {
+        console.log(doc)
+        batch.delete(doc.ref);
+      });
+      await batch.commit();
+      console.log("Cards deleted successfully.");
+    }
+
+    // Delete the set document itself
+    const setDoc = db.collection('sets').doc(userId).collection('sets').doc(setName);
+    await setDoc.delete();
+
+    console.log(`Set "${setName}" deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting the set:", error);
+  }
+}
+
 //const sets = await getSetsByUser("userid1");
 //console.log(sets);
 
 //debugging
 //writeCardToSet("hand", "body", "userid1");
 //getSet("fruit");
+//deleteWholeSet("test", "userid1");
