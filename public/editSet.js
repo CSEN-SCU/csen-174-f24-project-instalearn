@@ -1,7 +1,17 @@
 let deletedTerms = [];
+const editBtn = document.getElementById("edit-btn");
+const doneBtn = document.getElementById("done-btn");
+const delSetBtn = document.getElementById("delSet-btn");
+const exportBtn = document.getElementById("export-btn");
 
 //Grab userid and set variable
 var userid = 'userid1';
+if (userid == "userid1"){
+    editBtn.style.display = 'none';
+}
+else{
+    editBtn.style.display = 'block';
+}
 
 //get setid
 var setid = params.get('query');
@@ -9,9 +19,6 @@ setid = setid.toLowerCase();
 console.log(setid);
 
 //when user clicks edit button...
-const editBtn = document.getElementById("edit-btn");
-const doneBtn = document.getElementById("done-btn");
-const delSetBtn = document.getElementById("delSet-btn");
 editBtn.addEventListener('click', async (event) => {
     //hide edit-btn, show done-btn
     editBtn.style.display = 'none';
@@ -99,4 +106,68 @@ delSetBtn.addEventListener('click', async (event) => {
     } catch (error) {
         console.error('Error deleting set:', error);
     }
+});
+
+exportBtn.onmouseover = function() {
+    var alerts = document.getElementsByClassName("export-alert");
+    Array.prototype.forEach.call(alerts, function(alert) {
+        alert.style.display = "block";
+    });
+};
+
+exportBtn.onmouseout = function(){
+    var alerts = document.getElementsByClassName("export-alert");
+    Array.prototype.forEach.call(alerts, function(alert) {
+        alert.style.display = "none";
+    });
+}
+
+exportBtn.addEventListener('click', async (event) => {
+    var terms = document.getElementsByClassName("result-box");
+    var fc = "";
+    
+    // Iterate over each flashcard and gather the necessary content
+    Array.prototype.forEach.call(terms, function(flashCard) {
+        var fcContent = flashCard.getElementsByClassName("detail-box");
+        
+        // Get the title from the <h2> tag and add it to the file content
+        fc += flashCard.getElementsByTagName("h2")[0].innerHTML + "|";
+        
+        // Gather the details from the .detail-box elements
+        Array.prototype.forEach.call(fcContent, function(cardDeets) {
+            // Check for nested img tag
+            var hasImg = cardDeets.querySelector('img') !== null;
+
+            // Check for nested audio tag
+            var hasAudio = cardDeets.querySelector('audio') !== null;
+
+            if (hasImg || hasAudio) {
+                fc += cardDeets.innerHTML;
+            }
+            else{
+                fc = fc + "<p>" + cardDeets.innerHTML + "</p>";
+            }
+        });
+        fc += "\n";
+        console.log("FINAL: ", fc);
+    });
+
+    // Create a Blob with the content
+    var blob = new Blob([fc], { type: 'text/plain' });
+
+    // Create a link element
+    var link = document.createElement('a');
+    
+    // Create a URL for the Blob and set it as the href for the link
+    link.href = URL.createObjectURL(blob);
+    
+    // Set the download attribute with the desired filename
+    fileName = document.getElementById("header").textContent;
+    fileName += ".txt";
+    link.download = fileName;
+    
+    // Programmatically click the link to trigger the download
+    link.click();
+    
+    console.log('File created and download started!');
 });
