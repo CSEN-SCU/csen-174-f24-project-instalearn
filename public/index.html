@@ -87,7 +87,24 @@
     fetchUserSets('currentUserId', 'sets'); 
 
     //Premade Sets
-    fetchUserSets('userid1', 'premade-sets'); 
+    fetchUserSets('userid1', 'premade-sets');
+    
+    document.querySelector('.logout').addEventListener('click', async () => {
+        try {
+            // Sign out from Firebase (if using Firebase Auth)
+            if (typeof firebase !== 'undefined') {
+                const auth = firebase.auth();
+                await auth.signOut();
+                console.log('User signed out from Firebase');
+            }
+
+            // Redirect to login page
+            window.location.href = "/login.html"; // Adjust the path to your login page
+        } catch (error) {
+            console.error("Error logging out:", error);
+            alert("An error occurred while logging out. Please try again.");
+        }
+    });
 </script>
 
 </body>
