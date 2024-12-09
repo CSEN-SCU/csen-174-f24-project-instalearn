@@ -23,7 +23,10 @@ export async function writeCard(word, translated, image, sound) {
 }
 
 export async function getCard(word) {
+  const startTime = performance.now(); // Start the timer
   const card = await db.collection('cards').doc(word).get();
+  const endTime = performance.now(); // End the timer
+  console.log(`Firebase call took ${endTime - startTime} milliseconds.`);
   console.log(card.id, '=>', card.data());
   return card.exists ? card.data() : null;
 }

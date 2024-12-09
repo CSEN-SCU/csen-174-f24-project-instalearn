@@ -11,6 +11,7 @@ export async function fetchCardData(word) {
 
 //query the Bing image search API
 async function fetchImage(word) {
+    const startTime = performance.now(); // Start the timer
     let subscriptionKey = '02bd4abba1da45218285359503abc2de';
     try{
         const res = await axios.get("https://api.bing.microsoft.com/v7.0/images/search", {
@@ -21,6 +22,8 @@ async function fetchImage(word) {
                 q: word
             }
         });
+        const endTime = performance.now(); // End the timer
+        console.log(`Bing API call took ${endTime - startTime} milliseconds.`);
         return res.data.value[0].thumbnailUrl; //return the first result image 
     }
     catch (err){
@@ -31,6 +34,7 @@ async function fetchImage(word) {
 
 // Call Translation API
 async function fetchTranslation(word) {
+    const startTime = performance.now(); // Start the timer
     try {
         // query translation API for translated word
         const translationResult = await translate(word, { from: 'en', to: 'pt', autoCorrect: false, forceBatch: true });
@@ -43,6 +47,9 @@ async function fetchTranslation(word) {
         // Debugging: Save the mp3 to file
         //writeFileSync(`${translated}.mp3`, audio, { encoding: 'base64' });
   
+        const endTime = performance.now(); // End the timer
+        console.log(`Translation API call took ${endTime - startTime} milliseconds.`);
+
         // Return the translated text and audio as an array
         return [portuguese, audio];
     } catch (err) {
