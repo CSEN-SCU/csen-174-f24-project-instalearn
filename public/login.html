@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - InstaLearn</title>
   <link rel="stylesheet" href="styles.css"> <!-- Optional styling -->
+  <style>
+    div {
+      text-align: center;}
+  </style>
   <script type="module">
     // Import Firebase modules
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -66,11 +70,14 @@
     window.loginWithGoogle = loginWithGoogle;
   </script>
 </head>
-<body>
-  <div class="login-container">
-    <h1>Welcome to InstaLearn</h1>
-    <p>Please sign in with Google to continue</p>
-    <button class="login-button" onclick="loginWithGoogle()">Login with Google</button>
+<main class="login">
+  <a class="logo">InstaLearn</a>
+  <div>
+    <button class="login-btn" onclick="loginWithGoogle()">Login with Google</button>
   </div>
-</body>
+</main>
+  <!-- <h1>Please sign in with Google to continue</h1> -->
+ 
+</header>
+
 </html>
