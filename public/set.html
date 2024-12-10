@@ -136,7 +136,7 @@
         var type = params.get('type');
         if (query) {
             const idToken = type == "premade"? "userid1" : localStorage.getItem("userToken");
-            console.log("this is the idToken" + idToken);
+            //console.log("this is the idToken" + idToken);
             if (idToken) {
                 fetchVocabularySet(idToken, query);
             } else {

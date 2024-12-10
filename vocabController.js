@@ -22,7 +22,7 @@ export async function getVocabCard(req, res) {
 export async function getVocabSet(req, res) {
     const userId = req.user?.uid;
     const { query } = req.query;
-    console.log("Query: ", query);
+    //console.log("Query: ", query);
     if (!query) {
         return res.status(400).json({ error: "Query parameter is required" });
     }
@@ -79,9 +79,9 @@ export async function addCardToSet(req, res) {
     //console.log("ABC: ", req.body);
     const userId = req.user?.uid; // Get authenticated user ID from request
     const { word, setid } = req.body;
-    console.log(userId);
-    console.log(word);
-    console.log(setid);
+    //console.log(userId);
+    //console.log(word);
+    //console.log(setid);
         if (!word || !setid || !userId) {
             return res.status(400).json({ error: "Missing required parameters: word, setid, userid" });
         }
@@ -98,8 +98,8 @@ export async function addCardToSet(req, res) {
 export async function deleteCard(req, res){
     const userid = req.user?.uid;
     const { selectedCards, setid } = req.body;
-    console.log(selectedCards, setid, userid);
-    console.log(selectedCards[0])
+    //console.log(selectedCards, setid, userid);
+    //console.log(selectedCards[0])
 
     if (!selectedCards || !setid || !userid){
         return res.status(400).json({error: "Missing required parameters: userid, setid, selectedCards"});
