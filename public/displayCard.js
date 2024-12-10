@@ -45,7 +45,12 @@ function dropShow(){
 
 async function fetchUserSetOptions(userId) {
     try {
-        const response = await fetch(`http://localhost:8000/getUserSets?userId=${encodeURIComponent(userId)}`);
+        const response = await fetch('/getUserSets', {
+            method: 'GET',
+            headers: { 
+              "Authorization": `Bearer ${userId}` 
+            },
+          });
         if (!response.ok) throw new Error('Failed to fetch user sets');
 
         const sets = await response.json();
@@ -63,12 +68,13 @@ async function fetchUserSetOptions(userId) {
                   
                   try {
                     console.log(query, setName, userId);
-                    alert(query + ' successfully added to set ' + setName);
                     // Make a POST request to the backend
                     const response = await fetch('http://localhost:8000/addCardToSet', {
                       method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ word: query, setid: setName, userid: userId })
+                      headers: { 'Content-Type': 'application/json', 
+                                 "Authorization": `Bearer ${userId}` 
+                       },
+                      body: JSON.stringify({ word: query, setid: setName })
                     });
                     if (!response.ok) throw new Error('Failed to add card to set');
                     
@@ -85,8 +91,15 @@ async function fetchUserSetOptions(userId) {
         console.error('Error fetching user sets:', error);
     }
 }
-// Example: Call this function with a userId
-fetchUserSetOptions('userid1');
+// Call this function with logged in userId
+const idToken = localStorage.getItem("userToken");
+console.log("this is the idToken" + idToken);
+if (idToken) {
+    fetchUserSetOptions(idToken, "sets"); // Use the stored userId
+} else {
+    alert("User not logged in. Redirecting to login...");
+    window.location.href = "/login.html";
+}
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {

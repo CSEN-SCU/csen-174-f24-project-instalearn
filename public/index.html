@@ -37,7 +37,12 @@
 <script>
     async function fetchUserSets(userId, containerId) {
         try {
-            const response = await fetch(`http://localhost:8000/getUserSets?userId=${encodeURIComponent(userId)}`);
+            const response = await fetch('/getUserSets', {
+                method: 'GET',
+                headers: { 
+                  "Authorization": `Bearer ${userId}` 
+                },
+              });
             if (!response.ok) {
                 if (response.status === 404) {
                     displayNoSetsMessage(containerId, "You have no sets yet.");
@@ -65,7 +70,8 @@
                 const setElement = document.createElement('a');
                 setElement.classList.add("set-card");
                 const setName = set.id;
-                setElement.href = `set.html?query=${setName}`;
+                const setType = containerId === 'premade-sets' ? 'premade' : 'user';
+                setElement.href = `set.html?query=${setName}&type=${setType}`;
                 setElement.textContent = setName.charAt(0).toUpperCase() + setName.slice(1); // Capitalize first letter
                 setsContainer.appendChild(setElement);
             });
@@ -84,7 +90,14 @@
     }
 
     //User sets
-    fetchUserSets('currentUserId', 'sets'); 
+    const idToken = localStorage.getItem("userToken");
+    //console.log("this is the userID" + idToken);
+    if (idToken) {
+        fetchUserSets(idToken, "sets"); // Use the stored userId
+    } else {
+        alert("User not logged in. Redirecting to login...");
+        window.location.href = "/login.html";
+    }
 
     //Premade Sets
     fetchUserSets('userid1', 'premade-sets');
@@ -97,7 +110,7 @@
                 await auth.signOut();
                 console.log('User signed out from Firebase');
             }
-
+            localStorage.removeItem("userId");
             // Redirect to login page
             window.location.href = "/login.html"; // Adjust the path to your login page
         } catch (error) {

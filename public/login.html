@@ -45,8 +45,11 @@
           },
           body: JSON.stringify({ idToken }),
         });
+        
 
         if (response.ok) {
+          const { userId } = await response.json(); // Retrieve userId from response
+          localStorage.setItem("userToken", idToken); 
           // Redirect to the protected application
           window.location.href = "/index.html";
         } else {
