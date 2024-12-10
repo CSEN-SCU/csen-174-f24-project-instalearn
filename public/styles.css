@@ -19,6 +19,14 @@ body {
     text-decoration: none;
 }
 
+.logo {
+    font-size: 25pt;
+    font-weight: bold; 
+    color: #BC4749; 
+    text-decoration: none;
+    margin: 20px;
+}
+
 .header form {
     display: flex; 
     flex-grow: 1;
@@ -75,6 +83,32 @@ body {
     align-items: center;
     gap: 25px; 
     white-space: nowrap;
+}
+
+.login .login-btn {
+    padding: 10px 15px; 
+    background-color: #6A994E; 
+    color: #F2E8CF; 
+    border: 2px solid #386641; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15pt; 
+    line-height: 1; 
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #5A7A3E; 
+}
+
+.login .logo{
+    font-size: 60pt;
+    font-weight: bold; 
+    color: #BC4749; 
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .info-button {
