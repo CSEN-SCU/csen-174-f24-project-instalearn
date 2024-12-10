@@ -1,17 +1,10 @@
 let deletedTerms = [];
-const editBtn = document.getElementById("edit-btn");
+//const editBtn = document.getElementById("edit-btn");
 const doneBtn = document.getElementById("done-btn");
 const delSetBtn = document.getElementById("delSet-btn");
 const exportBtn = document.getElementById("export-btn");
 
-//Grab userid and set variable
-var userid = 'userid1';
-if (userid == "userid1"){
-    editBtn.style.display = 'none';
-}
-else{
-    editBtn.style.display = 'block';
-}
+//Edit button showing moved to set.html
 
 //get setid
 var setid = params.get('query');
@@ -75,10 +68,13 @@ doneBtn.addEventListener('click', async (event) => {
     try {
         console.log(userid, setid, deletedTerms);
         // Make a POST request to the backend
+        var userid = localStorage.getItem("userToken");
         const response = await fetch('http://localhost:8000/deleteCard', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ selectedCards: deletedTerms, setid: setid, userid: userid })
+            headers: { 'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userid}`
+            },
+            body: JSON.stringify({ selectedCards: deletedTerms, setid: setid})
         });
         if (!response.ok) throw new Error('Failed to delete card from set');
         const result = await response.json();
@@ -91,12 +87,15 @@ doneBtn.addEventListener('click', async (event) => {
 //when user clicks delete set button...
 delSetBtn.addEventListener('click', async (event) => {
     try {
+        var userid = localStorage.getItem("userToken");
         console.log(userid, setid);
         // Make a POST request to the backend
         const response = await fetch('http://localhost:8000/deleteSet', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ setName: setid, userId: userid })
+            headers: { 'Content-Type': 'application/json',
+                       'Authorization': `Bearer ${userid}`
+             },
+            body: JSON.stringify({ setName: setid })
         });
         console.log(response.body);
         if (!response.ok) throw new Error('Failed to delete set');

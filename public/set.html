@@ -41,12 +41,17 @@
     <div id="set-cards"></div>
 </main>
 <script>
-        async function fetchVocabularySet(query) {
+        async function fetchVocabularySet(user, query) {
             const vocabContainer = document.getElementById("set-cards");
 
             try {
                 // Fetch the vocabulary set
-                const response = await fetch(`http://localhost:8000/getVocabularySet?query=${encodeURIComponent(query)}`);
+                const response = await fetch(`/getVocabularySet?query=${encodeURIComponent(query)}`, {
+                method: 'GET',
+                headers: { 
+                  "Authorization": `Bearer ${user}` 
+                },
+              });
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -128,14 +133,42 @@
         // Extract query parameter from URL and fetch the vocabulary set
         const params = new URLSearchParams(window.location.search);
         var query = params.get('query');
+        var type = params.get('type');
         if (query) {
-            fetchVocabularySet(query);
+            const idToken = type == "premade"? "userid1" : localStorage.getItem("userToken");
+            console.log("this is the idToken" + idToken);
+            if (idToken) {
+                fetchVocabularySet(idToken, query);
+            } else {
+                alert("User not logged in. Redirecting to login...");
+                window.location.href = "/login.html";
+            }
             query = query.charAt(0).toUpperCase() + query.slice(1);
             console.log(query);
             document.getElementById('header').innerHTML = `<h1>${query}</h1>`;
         } else {
             document.getElementById("vocabulary").textContent = "No query provided in the URL.";
         }
+        //display edit button only if not premade set
+        const editBtn = document.getElementById("edit-btn");
+        editBtn.style.display = type == "premade" ? 'none' : 'block';
+
+        document.querySelector('.logout').addEventListener('click', async () => {
+        try {
+            // Sign out from Firebase (if using Firebase Auth)
+            if (typeof firebase !== 'undefined') {
+                const auth = firebase.auth();
+                await auth.signOut();
+                console.log('User signed out from Firebase');
+            }
+            localStorage.removeItem("userId");
+            // Redirect to login page
+            window.location.href = "/login.html"; // Adjust the path to your login page
+        } catch (error) {
+            console.error("Error logging out:", error);
+            alert("An error occurred while logging out. Please try again.");
+        }
+    });
 </script>
 </body>
 </html>

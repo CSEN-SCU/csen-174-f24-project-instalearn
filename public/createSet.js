@@ -15,12 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/addSet', {
+            idToken = localStorage.getItem("userToken");
+            const response = await fetch('/addSet', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user: user, name: setName }) // Include both user and set name
-            });
-
+                headers: { 
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${idToken}` 
+                },
+                body: JSON.stringify({ name: setName }),
+              });
             if (!response.ok) throw new Error(`Error: ${response.statusText}`);
             const result = await response.json();
             //alert(result.message);
@@ -32,4 +35,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
+});
+
+document.querySelector('.logout').addEventListener('click', async () => {
+    try {
+        // Sign out from Firebase (if using Firebase Auth)
+        if (typeof firebase !== 'undefined') {
+            const auth = firebase.auth();
+            await auth.signOut();
+            console.log('User signed out from Firebase');
+        }
+        localStorage.removeItem("userId");
+        // Redirect to login page
+        window.location.href = "/login.html"; // Adjust the path to your login page
+    } catch (error) {
+        console.error("Error logging out:", error);
+        alert("An error occurred while logging out. Please try again.");
+    }
 });

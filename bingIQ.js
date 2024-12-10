@@ -2,24 +2,29 @@
 import express from "express";
 import { getVocabCard, addSet, getVocabSet, getUserSets, addCardToSet, deleteCard, deleteSet } from './vocabController.js';
 import bodyParser from "body-parser";
-import { initializeApp, cert } from "firebase-admin/app";
+import { initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import path from "path";
 import { fileURLToPath } from "url";
-import serviceAccount from "./database/creds.json" assert { type: "json"}; // Update path to our Firebase service account key
 import cors from "cors";
 
 // Middleware to verify the ID token
 async function authenticate(req, res, next) {
-  console.log("Headers in authenticate middleware:", req.headers); // Debug
+  //console.log("Headers in authenticate middleware:", req.headers); // Debug
   const idToken = req.headers["authorization"]?.split("Bearer ")[1];
   if (!idToken) {
     return res.status(401).send("Unauthorized");
   }
 
   try {
-    const decodedToken = await getAuth().verifyIdToken(idToken);
-    req.user = decodedToken; // Attach user info to request
+    if (idToken != "userid1"){
+      console.log(idToken);
+      const decodedToken = await getAuth().verifyIdToken(idToken);
+      req.user = {uid: decodedToken.uid}; // Attach user info to request
+    }
+    else{
+      req.user = {uid: idToken};
+    }
     next();
   } catch (error) {
     console.error("Error verifying token:", error);
@@ -61,7 +66,8 @@ app.post("/verify-token", async (req, res) => {
   const { idToken } = req.body;
   try {
     const decodedToken = await getAuth().verifyIdToken(idToken);
-    res.status(200).json({ message: "Authenticated", user: decodedToken });
+    const userId = decodedToken.uid; // Extract user ID
+    res.status(200).json({ message: "Authenticated", userId });
   } catch (error) {
     console.error("Error verifying token:", error);
     res.status(401).send({ error: "Unauthorized" });
@@ -73,12 +79,12 @@ app.get("/app", authenticate, (req, res) => {
 });
 
 app.get('/getVocabularyCard', getVocabCard);
-app.get('/getVocabularySet', getVocabSet);
-app.get('/getUserSets', getUserSets);
-app.post('/addSet', addSet);
-app.post('/addCardToSet', addCardToSet);
-app.post('/deleteCard', deleteCard);
-app.post('/deleteSet', deleteSet);
+app.get('/getVocabularySet', authenticate, getVocabSet);
+app.get('/getUserSets', authenticate, getUserSets);
+app.post('/addSet', authenticate, addSet);
+app.post('/addCardToSet', authenticate, addCardToSet);
+app.post('/deleteCard', authenticate, deleteCard);
+app.post('/deleteSet', authenticate, deleteSet);
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get('/search', (req, res) => {

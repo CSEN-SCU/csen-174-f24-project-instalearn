@@ -3,7 +3,7 @@
 import e from 'express';
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
-import serviceAccount from "./database/creds.json" assert { type: "json" };
+import serviceAccount from "./database/creds.json" with { type: "json" };
 
 initializeApp({
   credential: cert(serviceAccount)
@@ -33,7 +33,8 @@ export async function getCard(word) {
 
 export async function writeCardToSet(word, setid, userid) {
   const timestamp = new Date(); 
-
+  console.log(userid);
+  console.log(word);
   const docRef = db.collection('sets').doc(userid).collection("sets").doc(setid).collection("cards").doc(word);
   
   await docRef.set({
@@ -52,8 +53,8 @@ export async function writeCardToSet(word, setid, userid) {
 //   return set.exists ? set.data() : null;
 // }
 
-export async function getSet(query) {
-  const setCollection = await db.collection("sets").doc("userid1").collection("sets").doc(query).collection("cards").get();
+export async function getSet(user, query) {
+  const setCollection = await db.collection("sets").doc(user).collection("sets").doc(query).collection("cards").get();
   const cards = [];
   setCollection.forEach(doc => {
       cards.push({ id: doc.id, ...doc.data() });
