@@ -45,6 +45,8 @@
     async function fetchInitialSearch(query) {
         // Fetch data from the backend
         try {
+            query = query.toLowerCase();
+            console.log("Here's the query: ", query);
             const response = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(query)}`);
             if (!response.ok) throw new Error('Failed to fetch data');
 

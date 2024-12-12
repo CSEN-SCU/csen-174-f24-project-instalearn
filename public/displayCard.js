@@ -21,6 +21,7 @@ window.onload = function() {
 
 async function fetchVocabularyData(query) {
     try {
+        query = query.toLowerCase();
         const response = await fetch(`http://localhost:8000/getVocabularyCard?word=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error('Failed to fetch data');
 
