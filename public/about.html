@@ -34,5 +34,24 @@
         <footer>
             <p>InstaLearn was developed by Alexandre Lopes, Gwendolyn Patwardhan, Riana Santos, and Sara Wheeler for Santa Clara University’s Software Engineering (CSEN 174) class over the course of 10 weeks in Fall 2024.</p>
         </footer>
+
+        <script>
+            document.querySelector('.logout').addEventListener('click', async () => {
+        try {
+            // Sign out from Firebase (if using Firebase Auth)
+            if (typeof firebase !== 'undefined') {
+                const auth = firebase.auth();
+                await auth.signOut();
+                console.log('User signed out from Firebase');
+            }
+            localStorage.removeItem("userId");
+            // Redirect to login page
+            window.location.href = "/login.html"; // Adjust the path to your login page
+        } catch (error) {
+            console.error("Error logging out:", error);
+            alert("An error occurred while logging out. Please try again.");
+        }
+    });
+        </script>
     </body>
 </main>
